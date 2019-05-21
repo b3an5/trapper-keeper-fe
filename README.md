@@ -1,9 +1,10 @@
 # Trapper Keeper
 Assigned project for Module 3(of 4) of the Front-End Engineering program at Turing School of Software and Design 
 #### Contributors
-Mark Collins https://github.com/kobesparrow
-Theo Bean https://github.com/b3an5
-Kelly Zick https://github.com/misskelly
++ Mark Collins https://github.com/kobesparrow
++ Theo Bean https://github.com/b3an5
++ Kelly Zick https://github.com/misskelly
+****
 [Group DTR (Define The Relationship) can be viewed here](https://gist.github.com/kobesparrow/f29d99498b748d1f2105260da9112153)
 
 ## Learning Goals

@@ -23,6 +23,8 @@ Instructions: TKTKTK
 
 ## Screenshots
 
+Wireframe: 
+![Created using Sketch](src/images/wireframe.png)
 
 ## Learning goals
 
@@ -31,5 +33,3 @@ Instructions: TKTKTK
 
 
 #### Biggest Struggle
-
-

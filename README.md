@@ -11,11 +11,9 @@ Assigned project for Module 3(of 4) of the Front-End Engineering program at Turi
 + Continue to improve on building client-side applications using react, redux, and react router
 + Understand how to build a dynamic form ui
 + Understand how to build your own api using node and express
-
-### Assignment Rubric
-(http://frontend.turing.io/projects/trapper-keeper.html)
++ [View the original assignment rubric](http://frontend.turing.io/projects/trapper-keeper.html)
 ## Wireframe
-![Created in sketch](src/images.wireframe.png)
+![Created using Sketch](src/images/wireframe.png)
 ## Submitted Product
 
 

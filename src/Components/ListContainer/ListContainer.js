@@ -1,12 +1,12 @@
 import React from 'react';
 import List from '../../Components/List/List'
 
-const ListContainer = () => {
+const ListContainer = (props) => {
   
 
   return(
     <div>
-      <List />
+      <List setList={ props.setList }/>
     </div>
   )
 }

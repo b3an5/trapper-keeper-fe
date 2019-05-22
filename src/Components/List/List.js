@@ -4,23 +4,29 @@ import ListItem from '../ListItem/ListItem';
 import TitleForm from '../TitleForm/TitleForm';
 
 class List extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       title: '',
       listItems: [],
-
+      titleSet: false
     }
   }
 
   setTitle = (title) => {
     this.setState({ title: title, titleSet: true })
+    this.stashList(this.state)
+  }
+
+  stashList = (list) => {
+    console.log('test', this.state)
   }
 
   addToList = (listItem) => {
-    const newListItem = { text: listItem, id: Date.now()}
+    const newListItem = { text: listItem, id: Date.now(), completed: false}
     this.setState({ listItems: [...this.state.listItems, newListItem] })
+    this.props.setList(this.state)
   }
   
   render() {
@@ -36,7 +42,7 @@ class List extends Component {
 
     return(
       <div>
-        { titleSection }
+        <h3>{ titleSection }</h3>
         { listItems }
         <ListForm addToList={ this.addToList }/>
       </div>

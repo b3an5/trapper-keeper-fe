@@ -18,11 +18,12 @@ class List extends Component {
 
   setTitle = (title) => {
     this.setState({ title: title, titleSet: true })
-    this.saveList(this.state.title, this.state.listItems)
+    this.stashList()
   }
 
-  stashList = (list) => {
-    console.log('test', this.state)
+  stashList = () => {
+    console.log('stashList test')
+    saveList(this.state.title, this.state.listItems)
   }
 
   addToList = (listItem) => {

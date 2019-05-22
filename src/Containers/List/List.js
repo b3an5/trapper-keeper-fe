@@ -49,10 +49,6 @@ class List extends Component {
   }
 }
 
-// export const mapStateToProps = (state) => ({
-//   lists: state.lists
-// })
-
 export const mapDispatchToProps = (dispatch) => ({
   saveList: (title, listItems) => dispatch(saveList(title, listItems))
 })

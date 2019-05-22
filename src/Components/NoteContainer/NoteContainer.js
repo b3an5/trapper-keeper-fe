@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '../../Containers/List/List'
 
-const ListContainer = (props) => {
+const NoteContainer = (props) => {
   
   return(
     <div>
@@ -10,4 +10,4 @@ const ListContainer = (props) => {
   )
 }
 
-export default ListContainer;
+export default NoteContainer;

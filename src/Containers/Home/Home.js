@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListContainer from '../../Components/ListContainer/ListContainer'
+import NoteContainer from '../../Components/NoteContainer/NoteContainer'
 import { Link } from 'react-router-dom'
 
 
@@ -37,7 +37,7 @@ export default class Home extends Component {
             </button>
           </Link>
         </header>
-          <ListContainer setList={this.setList} />
+          <NoteContainer setList={this.setList} />
       </main>
     );
   }

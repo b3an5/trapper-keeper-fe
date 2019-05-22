@@ -1,34 +1,18 @@
-import React, {Component} from 'react';
-import ListContainer from '../../Components/ListContainer/ListContainer'
+import React from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom'
+import Home from '../Home/Home'
 
-class App extends Component {
-  constructor() {
-    super()
 
-    this.state = {
-      lists: []
-    }
-  }
-
-  setList = (list) => {
-    console.log('list', list)
-    this.setState([...this.state.lists, list])
-    
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header>
-          <h1>Trapper Keeper</h1>
-          <button>Add new Idea</button>
-        </header>
-        <container>  
-          <ListContainer setList={this.setList}/>
-        </container>
-      </div>
-    );
-  }    
+const App = () => {
+  return (
+    <>
+      <Switch>
+        <Route exact path='/' component={ Home } />
+        <Route exact path='/new-note' component={ Home } />
+      </Switch>
+    </>
+  );  
 }
 
-export default App;
+export default withRouter(App);
+

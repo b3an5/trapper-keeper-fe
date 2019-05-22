@@ -4,20 +4,20 @@ import App from './Containers/App/App';
 import rootReducer from './reducers'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './base.scss';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
 const router = (
-  <BrowserRouter>
-    <Provider store={store}>
+
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </Provider>
 )
 
+
 ReactDOM.render(router, document.getElementById('root'));
-
-

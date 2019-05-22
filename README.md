@@ -9,10 +9,14 @@ Assigned project for Module 3(of 4) of the Front-End Engineering program at Turi
 ### Intall/Setup
 
 - `clone the repo`
-- `run npm install`
+- `run npm install` in both repos
 - `run npm start`
 - direct your browswer to localhost:3000
 
+clone down backend 
+`git clone https://github.com/misskelly/trapper-keeper-api `
+`npm install`
+`npm start`
 
 ## Stack
 - React

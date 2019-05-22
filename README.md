@@ -7,16 +7,17 @@ Assigned project for Module 3(of 4) of the Front-End Engineering program at Turi
 + Kelly Zick https://github.com/misskelly
 
 ### Intall/Setup
+##### clone down frontend
+- `git clone https://github.com/b3an5/trapper-keeper-fe`
+- `npm install` 
+- `npm start`
+- direct your browser to localhost:3000
 
-- `clone the repo`
-- `run npm install` in both repos
-- `run npm start`
-- direct your browswer to localhost:3000
 
-clone down backend 
-`git clone https://github.com/misskelly/trapper-keeper-api `
-`npm install`
-`npm start`
+##### clone down backend
+- `git clone https://github.com/misskelly/trapper-keeper-api `
+- `npm install`
+- `npm start`
 
 ## Stack
 - React

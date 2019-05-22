@@ -6,7 +6,6 @@ const ListContainer = () => {
 
   return(
     <div>
-      test.
       <List />
     </div>
   )

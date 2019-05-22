@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
 
-const TitleForm = () => {
+class TitleForm extends Component {
   constructor() {
     super()
 
     this.state = {
-      text: ''
+      title: ''
     }
   }
 
   handleChange = (event) => {
-    this.setState({ text: event.target.value })
+    this.setState({ title: event.target.value })
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.addToList(this.state.text)
-    this.setState({ text: '' })
+    this.props.setTitle(this.state.title)
+    this.setState({ title: '' })
   }
 
   render() {
@@ -25,8 +25,8 @@ const TitleForm = () => {
         <form onSubmit={this.handleSubmit}>
           <input
             type='text'
-            placeholder='Words'
-            name='listItem'
+            placeholder='Title'
+            name='title'
             value={this.state.text}
             onChange={this.handleChange}
           />
@@ -38,4 +38,4 @@ const TitleForm = () => {
 
 }
 
-export const TitleForm;
+export default TitleForm;

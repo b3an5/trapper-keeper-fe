@@ -1,4 +1,5 @@
 export const toggleCompleted = (id) => ({
+  type: 'TOGGLE_COMPLETED',
   id
 })
 

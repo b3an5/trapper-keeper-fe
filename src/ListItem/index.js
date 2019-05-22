@@ -17,9 +17,10 @@ export class ListItem extends Component {
     this.props.toggleCompleted(id)
   }
 
-  handleTextChange = (e) => {
+  handleTextChange = (e, id) => {
     const { value } = e.target;
     this.setState({text: value})
+    this.props.updateText(id, this.state.text)
   }
   // const { id, completed, text } = props.item
   render() {
@@ -37,7 +38,7 @@ export class ListItem extends Component {
         <label 
           for={`item-${id}`} 
           contentEditable
-          onChange={this.handleChange}>
+          onChange={() => this.handleTextChange(id)}>
           {text}
         </label>
       </li>
@@ -51,7 +52,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateText: (item) => dispatch(updateText(item)),
+  updateText: (id, text) => dispatch(updateText(id, text)),
   toggleCompleted: (item) => dispatch(toggleCompleted(item))
 })
 

@@ -24,6 +24,7 @@ class TitleForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
+            // contentEditable='true'
             type='text'
             placeholder='Title'
             name='title'

@@ -3,7 +3,6 @@ import List from '../../Containers/List/List'
 
 const ListContainer = (props) => {
   
-
   return(
     <div>
       <List setList={ props.setList }/>

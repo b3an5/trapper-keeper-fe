@@ -16,19 +16,15 @@ class List extends Component {
     }
   }
 
-  setTitle = (title) => {
-    this.setState({ title: title, titleSet: true })
-    this.stashList()
+  setTitle = async (title) => {
+    await this.setState({ title: title, titleSet: true }) 
+    this.props.saveList(this.state.title, this.state.listItems);
   }
 
-  stashList = () => {
-    console.log('stashList test')
-    saveList(this.state.title, this.state.listItems)
-  }
-
-  addToList = (listItem) => {
+  addToList = async (listItem) => {
     const newListItem = { text: listItem, id: Date.now(), completed: false}
-    this.setState({ listItems: [...this.state.listItems, newListItem] })
+    await this.setState({ listItems: [...this.state.listItems, newListItem] }) 
+    this.props.saveList(this.state.title, this.state.listItems);
     this.props.setList(this.state)
   }
   
@@ -53,7 +49,11 @@ class List extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+// export const mapStateToProps = (state) => ({
+//   lists: state.lists
+// })
+
+export const mapDispatchToProps = (dispatch) => ({
   saveList: (title, listItems) => dispatch(saveList(title, listItems))
 })
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import List from '../../Components/List/List'
+import List from '../../Containers/List/List'
 
 const ListContainer = (props) => {
   

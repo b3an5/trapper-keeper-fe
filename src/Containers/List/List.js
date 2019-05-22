@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import ListForm from '../ListForm/ListForm';
-import ListItem from '../ListItem/ListItem';
-import TitleForm from '../TitleForm/TitleForm';
+import ListForm from '../../Components/ListForm/ListForm';
+import ListItem from '../../Components/ListItem/ListItem';
+import TitleForm from '../../Components/TitleForm/TitleForm';
+import { saveList } from '../../actions/index';
+import { connect } from 'react-redux';
 
 class List extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class List extends Component {
 
   setTitle = (title) => {
     this.setState({ title: title, titleSet: true })
-    this.stashList(this.state)
+    this.saveList(this.state.title, this.state.listItems)
   }
 
   stashList = (list) => {
@@ -50,4 +52,8 @@ class List extends Component {
   }
 }
 
-export default List;
+const mapDispatchToProps = (dispatch) => ({
+  saveList: (title, listItems) => dispatch(saveList(title, listItems))
+})
+
+export default connect(null, mapDispatchToProps)(List)

@@ -19,8 +19,7 @@ export class Form extends Component {
   }
     
   handleSubmit = (e) => {
-    // debugger
-    const { title, list} = this.state;
+    const { title, list } = this.state;
     e.preventDefault();
     this.props.saveNote(title, list)
     this.props.history.push('/');
@@ -87,12 +86,12 @@ export class Form extends Component {
   }
 }
 
-// export const mapStateToProps = (state) => ({
-  
-// })
+export const mapStateToProps = (state) => ({
+  notes: state.notes || []
+})
 
 export const mapDispatchToProps = (dispatch) => ({
   saveNote: (title, listItems) => dispatch(saveNote(title, listItems))
 })
 
-export default connect(null, mapDispatchToProps)(Form)
+export default connect(mapStateToProps, mapDispatchToProps)(Form)

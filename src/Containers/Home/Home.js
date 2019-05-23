@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListContainer from '../../Components/ListContainer/ListContainer'
+import NoteContainer from '../NotesContainer/NotesContainer'
 import { Link } from 'react-router-dom'
 
 
@@ -8,13 +8,13 @@ export default class Home extends Component {
     super()
 
     this.state = {
-      lists: []
+      notes: []
     }
   }
 
-  setList = (list) => {
-    console.log('list', list)
-    this.setState([...this.state.lists, list])
+  setList = (note) => {
+    console.log('note', note)
+    this.setState([...this.state.notes, note])
 
   }
 
@@ -26,8 +26,9 @@ export default class Home extends Component {
   render() {
     return (
       <main className='home'>
-        <header>
+        <header className='header'>
           <h1>Trapper Keeper</h1>
+        </header>
           <Link
             to='/new-note'
             className='new-note-link'>
@@ -36,8 +37,7 @@ export default class Home extends Component {
               New Note
             </button>
           </Link>
-        </header>
-          <ListContainer setList={this.setList} />
+          <NoteContainer setList={this.setList} />
       </main>
     );
   }

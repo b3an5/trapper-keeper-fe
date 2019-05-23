@@ -26,7 +26,7 @@ export default class Home extends Component {
   render() {
     return (
       <main className='home'>
-        <header>
+        <header className='header'>
           <h1>Trapper Keeper</h1>
         </header>
           <Link

@@ -4,9 +4,9 @@ import List from '../../Containers/List/List'
 const NoteContainer = (props) => {
   
   return(
-    <div>
+    <section className='note-container'>
       <List setList={ props.setList }/>
-    </div>
+    </section>
   )
 }
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { mockNotes } from '../../utils/mockData'
+import { saveNote } from '../../actions/index';
 import ListItem from '../../Components/ListItem/ListItem';
 
 
@@ -13,37 +14,44 @@ export class Form extends Component {
   
     this.state = {
        title: '',
-       list: []
+       list: [],
+       redirectHome: false
     }
   }
     
   handleSubmit = (e) => {
+    debugger
+    const { title, list, redirectHome } = this.state;
     e.preventDefault();
+    this.props.saveNote(title, list);
+    this.setState({redirectHome: true})
   }
-
+  
   handleChange = (e) => {
-    const { name, value } = this.state
+    const { name, value } = e.target
+    this.setState({[name]: value})
   }
-
+  
   handleCancel = () => {
+    this.setState({redirectHome: true})
     console.log(this.props)
-  //  return <Redirect to = '/'/>;
   }
   // addListItem
 
   render() {
-    const { id, title, listItems } = mockNotes[0];
-    console.log(id)
-    const listContents = listItems.map(item => {
-      return (
-        <ListItem />
-        )
-    });
+    // const { id, title, listItems } = mockNotes[0];
+    // console.log(id)
+    // const listContents = listItems.map(item => {
+    //   return (
+    //     <ListItem />
+    //     )
+    // });
     return (
       <section className='form-section'>
         <article className='form-container'>
           <form className='list-form' onSubmit={this.handleSubmit}>
             <input 
+              name='title'
               className='title-input'
               placeholder='title'
               onChange={this.handleChange}
@@ -55,22 +63,18 @@ export class Form extends Component {
               Delete List
             </button>
             <ul className='list'>
-              {listContents}
+              {/* {listContents} */}
             </ul>
-            <Link
-              to='/'
-              className='cancel-link'>
-              <button 
-                className='form-cancel-btn'
-                // onClick={this.handleCancel}
-                >
-                Cancel
-              </button> 
-            </Link>
+            <button 
+              className='form-cancel-btn'
+              onClick={this.handleCancel}
+              >
+              Cancel
+            </button> 
             <button 
               type='submit'
               className='save-btn'
-            >
+              >
               Save
             </button> 
           </form>
@@ -81,12 +85,12 @@ export class Form extends Component {
   }
 }
 
-export const mapStateToProps = (state) => ({
+// export const mapStateToProps = (state) => ({
   
+// })
+
+export const mapDispatchToProps = (dispatch) => ({
+  saveNote: (title, listItems) => dispatch(saveNote(title, listItems))
 })
 
-export const mapDispatchToProps = {
-  
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
+export default connect(null, mapDispatchToProps)(Form)

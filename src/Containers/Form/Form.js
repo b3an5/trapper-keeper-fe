@@ -15,16 +15,15 @@ export class Form extends Component {
     this.state = {
        title: '',
        list: [],
-       redirectHome: false
     }
   }
     
   handleSubmit = (e) => {
-    debugger
-    const { title, list, redirectHome } = this.state;
+    // debugger
+    const { title, list} = this.state;
     e.preventDefault();
-    this.props.saveNote(title, list);
-    this.setState({redirectHome: true})
+    this.props.saveNote(title, list)
+    this.props.history.push('/');
   }
   
   handleChange = (e) => {
@@ -33,12 +32,13 @@ export class Form extends Component {
   }
   
   handleCancel = () => {
-    this.setState({redirectHome: true})
     console.log(this.props)
   }
   // addListItem
 
   render() {
+    const { title } = this.state;
+
     // const { id, title, listItems } = mockNotes[0];
     // console.log(id)
     // const listContents = listItems.map(item => {
@@ -46,16 +46,18 @@ export class Form extends Component {
     //     <ListItem />
     //     )
     // });
+
     return (
+
       <section className='form-section'>
         <article className='form-container'>
-          <form className='list-form' onSubmit={this.handleSubmit}>
+          <form className='list-form' onSubmit={ this.handleSubmit }>
             <input 
               name='title'
               className='title-input'
               placeholder='title'
               onChange={this.handleChange}
-              value={this.state.title}/>
+              value={ title }/>
             <button 
               className='delete-list-btn' 
               // onClick={this.deleteList}
@@ -67,7 +69,7 @@ export class Form extends Component {
             </ul>
             <button 
               className='form-cancel-btn'
-              onClick={this.handleCancel}
+              onClick={ this.handleCancel }
               >
               Cancel
             </button> 

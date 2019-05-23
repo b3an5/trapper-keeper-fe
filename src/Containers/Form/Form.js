@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { mockList } from '../utils/mockData'
-import ListItem from '../ListItem';
+import { Link } from 'react-router-dom';
+import { mockNotes } from '../../utils/mockData'
+import ListItem from '../../Components/ListItem/ListItem';
 
 
 
@@ -23,10 +24,15 @@ export class Form extends Component {
   handleChange = (e) => {
     const { name, value } = this.state
   }
+
+  handleCancel = () => {
+    console.log(this.props)
+  //  return <Redirect to = '/'/>;
+  }
   // addListItem
 
   render() {
-    const { id, title, listItems } = mockList;
+    const { id, title, listItems } = mockNotes[0];
     console.log(id)
     const listContents = listItems.map(item => {
       return (
@@ -51,12 +57,16 @@ export class Form extends Component {
             <ul className='list'>
               {listContents}
             </ul>
-            <button 
-              className='form-cancel-btn'
-              // onClick= route to /
-            >
-              Cancel
-            </button> 
+            <Link
+              to='/'
+              className='cancel-link'>
+              <button 
+                className='form-cancel-btn'
+                // onClick={this.handleCancel}
+                >
+                Cancel
+              </button> 
+            </Link>
             <button 
               type='submit'
               className='save-btn'

@@ -8,13 +8,13 @@ export default class Home extends Component {
     super()
 
     this.state = {
-      lists: []
+      notes: []
     }
   }
 
-  setList = (list) => {
-    console.log('list', list)
-    this.setState([...this.state.lists, list])
+  setList = (note) => {
+    console.log('note', note)
+    this.setState([...this.state.notes, note])
 
   }
 

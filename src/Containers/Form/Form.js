@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { mockList } from '../utils/mockData'
-import ListItem from '../ListItem';
+import { Redirect } from 'react-router-dom';
+import { mockNotes } from '../../utils/mockData'
+import { saveNote } from '../../actions/index';
+import ListItem from '../../Components/ListItem/ListItem';
 
 
 
@@ -12,36 +14,49 @@ export class Form extends Component {
   
     this.state = {
        title: '',
-       list: []
+       list: [],
     }
   }
     
   handleSubmit = (e) => {
+    const { title, list } = this.state;
     e.preventDefault();
+    this.props.saveNote(title, list)
+    this.props.history.push('/');
   }
-
+  
   handleChange = (e) => {
-    const { name, value } = this.state
+    const { name, value } = e.target
+    this.setState({[name]: value})
+  }
+  
+  handleCancel = () => {
+    console.log(this.props)
   }
   // addListItem
 
   render() {
-    const { id, title, listItems } = mockList;
-    console.log(id)
-    const listContents = listItems.map(item => {
-      return (
-        <ListItem />
-        )
-    });
+    const { title } = this.state;
+
+    // const { id, title, listItems } = mockNotes[0];
+    // console.log(id)
+    // const listContents = listItems.map(item => {
+    //   return (
+    //     <ListItem />
+    //     )
+    // });
+
     return (
+
       <section className='form-section'>
         <article className='form-container'>
-          <form className='list-form' onSubmit={this.handleSubmit}>
+          <form className='list-form' onSubmit={ this.handleSubmit }>
             <input 
+              name='title'
               className='title-input'
               placeholder='title'
               onChange={this.handleChange}
-              value={this.state.title}/>
+              value={ title }/>
             <button 
               className='delete-list-btn' 
               // onClick={this.deleteList}
@@ -49,18 +64,18 @@ export class Form extends Component {
               Delete List
             </button>
             <ul className='list'>
-              {listContents}
+              {/* {listContents} */}
             </ul>
             <button 
               className='form-cancel-btn'
-              // onClick= route to /
-            >
+              onClick={ this.handleCancel }
+              >
               Cancel
             </button> 
             <button 
               type='submit'
               className='save-btn'
-            >
+              >
               Save
             </button> 
           </form>
@@ -72,11 +87,11 @@ export class Form extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-  
+  notes: state.notes || []
 })
 
-export const mapDispatchToProps = {
-  
-}
+export const mapDispatchToProps = (dispatch) => ({
+  saveNote: (title, listItems) => dispatch(saveNote(title, listItems))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

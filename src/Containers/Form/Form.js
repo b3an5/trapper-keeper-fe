@@ -25,6 +25,10 @@ export class Form extends Component {
     this.props.history.push('/');
   }
   
+  // handleTextSubmit = () => {
+  //   e.preventDefault();
+  // }
+
   handleChange = (e) => {
     const { name, value } = e.target
     this.setState({[name]: value})
@@ -42,7 +46,7 @@ export class Form extends Component {
     // console.log(id)
     // const listContents = listItems.map(item => {
     //   return (
-    //     <ListItem />
+    //     <ListItem  />
     //     )
     // });
 
@@ -64,6 +68,7 @@ export class Form extends Component {
               Delete List
             </button>
             <ul className='list'>
+              <ListItem type='addNew' handleTextSubmit={this.handleTextSubmit}  />
               {/* {listContents} */}
             </ul>
             <button 

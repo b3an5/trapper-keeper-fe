@@ -1,14 +1,14 @@
 import React from 'react';
 import List from '../../Containers/List/List'
 
-const NoteContainer = (props) => {
-  const notes = 
+const NotesContainer = (props) => {
+  // const notes = 
   return(
-    <section className='note-container'>
+    <section className='notes-container'>
       
       <List setList={ props.setList }/>
     </section>
   )
 }
 
-export default NoteContainer;
+export default NotesContainer;

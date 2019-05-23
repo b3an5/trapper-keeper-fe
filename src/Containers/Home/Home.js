@@ -28,6 +28,7 @@ export default class Home extends Component {
       <main className='home'>
         <header>
           <h1>Trapper Keeper</h1>
+        </header>
           <Link
             to='/new-note'
             className='new-note-link'>
@@ -36,7 +37,6 @@ export default class Home extends Component {
               New Note
             </button>
           </Link>
-        </header>
           <NoteContainer setList={this.setList} />
       </main>
     );

@@ -1,4 +1,15 @@
+
+
 header {
   display: flex;
   justify-content: space-between;
+}
+
+body {
+  background: url('images/tk-background.svg'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right;
+  background-position-y: bottom; 
 }

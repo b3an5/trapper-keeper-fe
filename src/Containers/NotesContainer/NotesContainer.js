@@ -1,14 +1,25 @@
 import React from 'react';
-import List from '../List/List'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import Note from '../Note/Note'
+import { mockNotes } from '../../utils/mockData';
+
 
 const NotesContainer = (props) => {
-  // const notes = 
+  const notes = mockNotes.map(note => {
+    return (
+      <Note title={note.title} listItems={note.listItems}/>
+    )
+  })
   return(
     <section className='notes-container'>
-      
-      <List setList={ props.setList }/>
+      {notes}
     </section>
   )
 }
 
-export default NotesContainer;
+export const mapStateToProps = (state) => ({
+  notes: state.notes || []
+})
+
+export default connect(mapStateToProps)(NotesContainer)

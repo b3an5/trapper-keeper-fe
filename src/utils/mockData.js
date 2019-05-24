@@ -1,4 +1,4 @@
-export default const mockNotes = [
+export const mockNotes = [
   {
     title: 'to-do',
     id: 1,

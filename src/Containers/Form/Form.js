@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+
 // import { mockList } from '../utils/mockData'
 // import ListItem from '../ListItem';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 import { saveNote } from '../../actions/index'
-
 
 
 
@@ -21,7 +21,10 @@ export class Form extends Component {
   }
     
   handleSubmit = (e) => {
+    const { title, list } = this.state;
     e.preventDefault();
+    this.props.saveNote(title, list)
+    this.props.history.push('/');
   }
 
   setTitle = (title) => {
@@ -35,7 +38,12 @@ export class Form extends Component {
   }
 
   handleChange = (e) => {
-    const { name, value } = this.state
+    const { name, value } = e.target
+    this.setState({[name]: value})
+  }
+  
+  handleCancel = () => {
+    console.log(this.props)
   }
   
 
@@ -65,12 +73,14 @@ export class Form extends Component {
 
   render() {
     // const { id, title, listItems } = mockList;
+
     // console.log(id)
     // const listContents = listItems.map(item => {
     //   return (
     //     <ListItem />
     //     )
     // });
+
     let titleSection
 
     (this.state.titleSet) ?
@@ -116,14 +126,13 @@ export class Form extends Component {
       //       </button> 
       //     </form>
       //   </article>
-        
       // </section>
     )
   }
 }
 
 export const mapStateToProps = (state) => ({
-  
+  notes: state.notes || []
 })
 
 export const mapDispatchToProps = (dispatch) => ({

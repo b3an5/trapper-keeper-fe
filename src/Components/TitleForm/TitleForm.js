@@ -22,7 +22,7 @@ class TitleForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.props.displayTitle}>
           <input
             // contentEditable='true'
             type='text'

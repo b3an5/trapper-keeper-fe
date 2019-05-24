@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Corben:700|Nunito&display=swap');
 @import './Components/App/App';
 @import './Containers/NotesContainer/NotesContainer';
+@import './Containers/Note/Note';
 @import './Containers/Home/Home';
+// font-family: 'Corben', cursive;
+// 
+
+body {
+  font-family: 'Nunito', sans-serif;
+}

@@ -1,5 +1,4 @@
-export const saveNote = (title, listItems) => ({
+export const saveNote = (notes) => ({
   type: 'SAVE_NOTE',
-  title,
-  listItems
+  notes
 })

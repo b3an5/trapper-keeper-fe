@@ -15,8 +15,7 @@ class ListForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.addToList(this.state.text)
-    this.setState({ text: '' })
+    this.props.setList(this.state.text)
   }
 
   render() {

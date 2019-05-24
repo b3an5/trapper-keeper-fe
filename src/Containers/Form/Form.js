@@ -19,7 +19,10 @@ export class Form extends Component {
   }
     
   handleSubmit = (e) => {
+    const { title, list } = this.state;
     e.preventDefault();
+    this.props.saveNote(title, list)
+    this.props.history.push('/');
   }
 
   setTitle = (title) => {
@@ -33,7 +36,12 @@ export class Form extends Component {
   }
 
   handleChange = (e) => {
-    const { name, value } = this.state
+    const { name, value } = e.target
+    this.setState({[name]: value})
+  }
+  
+  handleCancel = () => {
+    console.log(this.props)
   }
   
 
@@ -118,14 +126,13 @@ export class Form extends Component {
       //       </button> 
       //     </form>
       //   </article>
-        
       // </section>
     )
   }
 }
 
 export const mapStateToProps = (state) => ({
-  
+  notes: state.notes || []
 })
 
 export const mapDispatchToProps = (dispatch) => ({

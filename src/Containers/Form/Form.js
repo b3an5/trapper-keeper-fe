@@ -49,19 +49,21 @@ export class Form extends Component {
 
   createNote = async (event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:3000/api/v1/notes', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: this.state.title,
-        listItems: this.state.list
-      }),
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-    const result = await response.json()
-    console.log(result)
-    this.saveNewNotesToStore()
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/notes', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: this.state.title,
+          listItems: this.state.list
+        }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      const result = await response.json()
+      console.log(result)
+      this.saveNewNotesToStore()
+    } catch(e){console.log(e)}
   }
 
   saveNewNotesToStore = () => {

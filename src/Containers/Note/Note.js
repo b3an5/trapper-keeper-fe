@@ -17,10 +17,11 @@ export class Note extends Component {
             className="checkbox" 
             id={`item-${li.id}`} 
             {...li.completed && 'checked'}
-            value={li.text}
-            onChange={() => this.handleCheckbox(li.id)}
+            // value={li.text}
+            // onChange={() => this.handleCheckbox(li.id)}
             />
           <label 
+            className='list-text'
             for={`item-${li.id}`} 
             contentEditable
             onChange={() => this.handleTextChange(li.id)}>
@@ -36,8 +37,12 @@ export class Note extends Component {
           className='delete-card-btn'>
             X
         </button>
-        <h3>{title}</h3>
-        {list}
+        <h3 className='list-title'>
+          {title}
+        </h3>
+        <ul className='card-list'>
+          {list}
+        </ul>
       </article>
     )
   }

@@ -7,6 +7,8 @@ import { saveNote } from '../../actions/index'
 
 export class Note extends Component {
 
+  // componentDidMount
+
   render() {
     const { title, listItems } = this.props
     const list = listItems.map(li => {

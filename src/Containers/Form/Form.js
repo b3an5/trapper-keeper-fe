@@ -19,12 +19,12 @@ export class Form extends Component {
     }
   }
     
-  handleSubmit = (e) => {
-    const { title, list } = this.state;
-    e.preventDefault();
-    this.props.saveNote(title, list)
-    this.props.history.push('/');
-  }
+  // handleSubmit = (e) => {
+  //   const { title, list } = this.state;
+  //   e.preventDefault();
+  //   this.props.saveNote(title, list)
+  //   this.props.history.push('/');
+  // }
 
   setTitle = (title) => {
     this.setState({ title })
@@ -70,6 +70,7 @@ export class Form extends Component {
     .then(response => response.json())
     .then(results => this.props.saveNote(results))
     .catch(error => console.log(error))
+    this.props.history.push('/')
   }
 
   displayTitle = () => {

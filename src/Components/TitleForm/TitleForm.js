@@ -10,14 +10,14 @@ class TitleForm extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({ title: event.target.value })
+    this.props.setTitle(event.target.value)
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.setTitle(this.state.title)
-    this.setState({ title: '' })
-  }
+  // handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   this.props.setTitle(this.state.title)
+  //   this.setState({ title: '' })
+  // }
 
   render() {
     return (
@@ -29,7 +29,7 @@ class TitleForm extends Component {
             placeholder='Title'
             name='title'
             value={this.state.text}
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
           />
           <button>+</button>
         </form>

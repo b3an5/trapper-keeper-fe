@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { mockNotes } from '../../utils/mockData'
-import { saveNote } from '../../actions/index';
-import ListItem from '../../Components/ListItem/ListItem';
+
+// import { mockList } from '../utils/mockData'
+// import ListItem from '../ListItem';
+import ListForm from '../../Components/ListForm/ListForm';
+import TitleForm from '../../Components/TitleForm/TitleForm';
+import { saveNote } from '../../actions/index'
 
 
 
@@ -13,8 +15,8 @@ export class Form extends Component {
     super(props)
   
     this.state = {
-       title: '',
-       list: [],
+      title: '',
+      list: []
     }
   }
     
@@ -24,7 +26,17 @@ export class Form extends Component {
     this.props.saveNote(title, list)
     this.props.history.push('/');
   }
-  
+
+  setTitle = (title) => {
+    this.setState({ title })
+  }
+
+  setList = (newText) => {
+    let newListItem = { text: newText }
+    let newList = [...this.state.list, newListItem]
+    this.setState({ list: newList })
+  }
+
   handleChange = (e) => {
     const { name, value } = e.target
     this.setState({[name]: value})
@@ -33,12 +45,37 @@ export class Form extends Component {
   handleCancel = () => {
     console.log(this.props)
   }
-  // addListItem
+  
+
+  createNote = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/notes', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: this.state.title,
+          listItems: this.state.list
+        }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      const result = await response.json()
+      console.log(result)
+      this.saveNewNotesToStore()
+    } catch(e){console.log(e)}
+  }
+
+  saveNewNotesToStore = () => {
+    fetch('http://localhost:3000/api/v1/notes')
+    .then(response => response.json())
+    .then(results => this.props.saveNote(results))
+    .catch(error => console.log(error))
+  }
 
   render() {
-    const { title } = this.state;
+    // const { id, title, listItems } = mockList;
 
-    // const { id, title, listItems } = mockNotes[0];
     // console.log(id)
     // const listContents = listItems.map(item => {
     //   return (
@@ -46,42 +83,52 @@ export class Form extends Component {
     //     )
     // });
 
-    return (
+    let titleSection
 
-      <section className='form-section'>
-        <article className='form-container'>
-          <form className='list-form' onSubmit={ this.handleSubmit }>
-            <input 
-              name='title'
-              className='title-input'
-              placeholder='title'
-              onChange={this.handleChange}
-              value={ title }/>
-            <button 
-              className='delete-list-btn' 
-              // onClick={this.deleteList}
-              >
-              Delete List
-            </button>
-            <ul className='list'>
-              {/* {listContents} */}
-            </ul>
-            <button 
-              className='form-cancel-btn'
-              onClick={ this.handleCancel }
-              >
-              Cancel
-            </button> 
-            <button 
-              type='submit'
-              className='save-btn'
-              >
-              Save
-            </button> 
-          </form>
-        </article>
-        
-      </section>
+    (this.state.titleSet) ?
+      titleSection = this.state.title :
+      titleSection = <TitleForm setTitle={this.setTitle} />
+
+    return (
+      <div>
+        { titleSection }
+        <ListForm setList={ this.setList }/>
+        <button onClick={ this.createNote }>Save</button>
+
+
+      </div>
+      // <section className='form-section'>
+      //   <article className='form-container'>
+      //     <form className='list-form' onSubmit={this.handleSubmit}>
+      //       <input 
+      //         className='title-input'
+      //         placeholder='title'
+      //         onChange={this.handleChange}
+      //         value={this.state.title}/>
+      //       <button 
+      //         className='delete-list-btn' 
+      //         // onClick={this.deleteList}
+      //         >
+      //         Delete List
+      //       </button>
+      //       <ul className='list'>
+      //         {listContents}
+      //       </ul>
+      //       <button 
+      //         className='form-cancel-btn'
+      //         // onClick= route to /
+      //       >
+      //         Cancel
+      //       </button> 
+      //       <button 
+      //         type='submit'
+      //         className='save-btn'
+      //       >
+      //         Save
+      //       </button> 
+      //     </form>
+      //   </article>
+      // </section>
     )
   }
 }
@@ -91,7 +138,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  saveNote: (title, listItems) => dispatch(saveNote(title, listItems))
+  saveNote: (notes) => dispatch(saveNote(notes))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

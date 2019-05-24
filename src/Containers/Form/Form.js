@@ -8,15 +8,14 @@ import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 import { saveNote } from '../../actions/index'
 
-
-
 export class Form extends Component {
   constructor(props) {
     super(props)
   
     this.state = {
       title: '',
-      list: []
+      list: [],
+      titleSet: false
     }
   }
     
@@ -73,6 +72,10 @@ export class Form extends Component {
     .catch(error => console.log(error))
   }
 
+  displayTitle = () => {
+    this.setState({ titleSet: true })
+  }
+
   render() {
     // const { id, title, listItems } = mockList;
 
@@ -87,7 +90,7 @@ export class Form extends Component {
 
     (this.state.titleSet) ?
       titleSection = this.state.title :
-      titleSection = <TitleForm setTitle={this.setTitle} />
+      titleSection = <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/>
 
     return (
       <div>

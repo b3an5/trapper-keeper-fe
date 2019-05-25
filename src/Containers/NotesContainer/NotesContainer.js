@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import Note from '../Note/Note'
 import { mockNotes } from '../../utils/mockData';
-import { saveNote } from '../../actions/index'
+import { updateNotes } from '../../actions/index'
 
 
 class NotesContainer extends Component  {
@@ -12,7 +12,7 @@ class NotesContainer extends Component  {
     // break this into api file
     const response = await fetch('http://localhost:3000/api/v1/notes')
     const result = await response.json()
-    this.props.saveNote(result)
+    this.props.updateNotes(result)
   }
 
   render() {
@@ -35,7 +35,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  saveNote: (notes) => dispatch(saveNote(notes))
+  updateNotes: (notes) => dispatch(updateNotes(notes))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer)

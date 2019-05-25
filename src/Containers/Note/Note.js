@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mockNotes } from '../../utils/mockData';
-import { saveNote } from '../../actions/index'
+import { updateNotes } from '../../actions/index'
 
 
 export class Note extends Component {
@@ -79,7 +79,7 @@ const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  saveNote: (notes) => dispatch(saveNote(notes))
+  updateNotes: (notes) => dispatch(updateNotes(notes))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note)

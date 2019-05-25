@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ListForm from '../../Components/ListForm/ListForm';
 import ListItem from '../../Components/ListItem/ListItem';
 import TitleForm from '../../Components/TitleForm/TitleForm';
-import { saveNote } from '../../actions/index';
+import { updateNotes } from '../../actions/index';
 import { connect } from 'react-redux';
 
 class List extends Component {
@@ -18,13 +18,13 @@ class List extends Component {
 
   setTitle = async (title) => {
     await this.setState({ title: title, titleSet: true }) 
-    this.props.saveNote(this.state.title, this.state.listItems);
+    this.props.updateNotes(this.state.title, this.state.listItems);
   }
 
   addToList = async (listItem) => {
     const newListItem = { text: listItem, id: Date.now(), completed: false}
     await this.setState({ listItems: [...this.state.listItems, newListItem] }) 
-    this.props.saveNote(this.state.title, this.state.listItems);
+    this.props.updateNotes(this.state.title, this.state.listItems);
     this.props.setList(this.state)
   }
   
@@ -50,7 +50,7 @@ class List extends Component {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  saveNote: (title, listItems) => dispatch(saveNote(title, listItems))
+  updateNotes: (title, listItems) => dispatch(updateNotes(title, listItems))
 })
 
 export default connect(null, mapDispatchToProps)(List)

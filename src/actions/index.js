@@ -1,4 +1,4 @@
-export const saveNote = (notes) => ({
-  type: 'SAVE_NOTE',
+export const updateNotes = (notes) => ({
+  type: 'UPDATE_NOTES',
   notes
 })

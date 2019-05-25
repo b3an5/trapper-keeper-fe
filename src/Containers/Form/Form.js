@@ -65,6 +65,7 @@ export class Form extends Component {
     } catch(e){console.log(e)}
   }
 
+  //need to make this a thunk
   saveNewNotesToStore = () => {
     fetch('http://localhost:3000/api/v1/notes')
     .then(response => response.json())

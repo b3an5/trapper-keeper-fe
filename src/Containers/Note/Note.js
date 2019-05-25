@@ -9,6 +9,30 @@ export class Note extends Component {
 
   // componentDidMount
 
+  deleteCard = async () => {
+    try {
+      debugger
+      const response = await fetch(`http://localhost:3000/api/v1/notes/${this.props.id}`, {
+        method: 'DELETE',
+        body: JSON.stringify({}),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      const result = await response.json()
+      console.log(result)
+      this.saveNewNotesToStore()
+    } catch (e) { console.log(e) }
+  }
+
+  //need to make a thunk
+  saveNewNotesToStore = () => {
+    fetch('http://localhost:3000/api/v1/notes')
+      .then(response => response.json())
+      .then(results => this.props.saveNote(results))
+      .catch(error => console.log(error))
+  }
+
   render() {
     const { title, listItems } = this.props
     const list = listItems.map(li => {
@@ -36,7 +60,8 @@ export class Note extends Component {
       <article 
         className='note-card'>
         <button
-          className='delete-card-btn'>
+          className='delete-card-btn'
+          onClick={this.deleteCard}>
             X
         </button>
         <h3 className='list-title'>

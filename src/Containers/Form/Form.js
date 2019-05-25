@@ -6,7 +6,7 @@ import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
 // import ListItem from '../ListItem';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
-import { saveNote } from '../../actions/index'
+import { updateNotes } from '../../actions/index'
 
 export class Form extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export class Form extends Component {
   // handleSubmit = (e) => {
   //   const { title, list } = this.state;
   //   e.preventDefault();
-  //   this.props.saveNote(title, list)
+  //   this.props.updateNotes(title, list)
   //   this.props.history.push('/');
   // }
 
@@ -58,7 +58,7 @@ export class Form extends Component {
   saveNewNotesToStore = async () => {
     try {
       const results = await getNotes();
-      return this.props.saveNote(results);
+      return this.props.updateNotes(results);
     }
     catch (error) {
       return console.log(error);
@@ -134,7 +134,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  saveNote: (notes) => dispatch(saveNote(notes))
+  updateNotes: (notes) => dispatch(updateNotes(notes))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

@@ -11,7 +11,6 @@ import { updateNotes } from '../../actions/index'
 export class Form extends Component {
   constructor(props) {
     super(props)
-  
     this.state = {
       title: '',
       list: [],
@@ -64,13 +63,14 @@ export class Form extends Component {
     catch (error) {
       return console.log(error);
     }
+  }
 
   displayTitle = () => {
     this.setState({ titleSet: true })
   }
 
-  render() {
-    // const { id, title, listItems } = mockList;
+  render(){
+    const { title, list, titleSet } = this.state;
 
     // console.log(id)
     // const listContents = listItems.map(item => {
@@ -81,8 +81,8 @@ export class Form extends Component {
 
     let titleSection
 
-    (this.state.titleSet) ?
-      titleSection = this.state.title :
+    (titleSet) ?
+      titleSection = title :
       titleSection = <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/>
 
     return (
@@ -100,7 +100,7 @@ export class Form extends Component {
       //         className='title-input'
       //         placeholder='title'
       //         onChange={this.handleChange}
-      //         value={this.state.title}/>
+      //         value={title}/>
       //       <button 
       //         className='delete-list-btn' 
       //         // onClick={this.deleteList}
@@ -127,6 +127,10 @@ export class Form extends Component {
       // </section>
     )
   }
+}
+
+Form.propTypes = {
+  updateNotes: PropTypes.func.isRequired,
 }
 
 export const mapStateToProps = (state) => ({

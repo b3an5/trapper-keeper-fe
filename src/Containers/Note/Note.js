@@ -10,6 +10,7 @@ export class Note extends Component {
   // componentDidMount
 
   deleteCard = async () => {
+    console.log(this.props)
     try {
       const response = await fetch(`http://localhost:3000/api/v1/notes/${this.props.id}`, {
         method: 'DELETE',
@@ -25,11 +26,15 @@ export class Note extends Component {
   }
 
   //need to make a thunk
-  saveNewNotesToStore = () => {
-    fetch('http://localhost:3000/api/v1/notes')
-      .then(response => response.json())
-      .then(results => this.props.saveNote(results))
-      .catch(error => console.log(error))
+  saveNewNotesToStore = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/notes');
+      const results = await response.json();
+      return this.props.updateNotes(results);
+    }
+    catch (error) {
+      return console.log(error);
+    }
   }
 
   render() {
@@ -72,6 +77,14 @@ export class Note extends Component {
       </article>
     )
   }
+}
+
+Note.propTypes = {
+  id: PropTypes.number.isRequired,
+  listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+  updateNotes: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({

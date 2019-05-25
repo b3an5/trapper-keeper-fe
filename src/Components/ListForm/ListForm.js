@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ListForm extends Component {
   constructor() {
@@ -35,5 +36,9 @@ class ListForm extends Component {
     )
   }
 }
+ListForm.propTypes = {
+  setList: PropTypes.func.isRequired
+}
+
 
 export default ListForm;

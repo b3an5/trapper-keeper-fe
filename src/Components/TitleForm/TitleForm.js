@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 
 class TitleForm extends Component {
   constructor() {
@@ -37,6 +39,10 @@ class TitleForm extends Component {
     )
   }
 
+}
+
+TitleForm.propTypes = {
+  setTitle: PropTypes.func.isRequired,
 }
 
 export default TitleForm;

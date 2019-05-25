@@ -55,6 +55,7 @@ export class Form extends Component {
     return savedNote;
   }
 
+
   saveNewNotesToStore = async () => {
     try {
       const results = await getNotes();
@@ -63,7 +64,6 @@ export class Form extends Component {
     catch (error) {
       return console.log(error);
     }
-  }
 
   displayTitle = () => {
     this.setState({ titleSet: true })

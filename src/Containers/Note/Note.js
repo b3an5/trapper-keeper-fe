@@ -11,7 +11,6 @@ export class Note extends Component {
 
   deleteCard = async () => {
     try {
-      debugger
       const response = await fetch(`http://localhost:3000/api/v1/notes/${this.props.id}`, {
         method: 'DELETE',
         body: JSON.stringify({}),

@@ -15,7 +15,7 @@ class ListForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.setList(this.state.text)
+    this.props.setList(this.state.text, this.props.index)
   }
 
   render() {
@@ -28,6 +28,7 @@ class ListForm extends Component {
             name='listItem'
             value={ this.state.text }
             onChange={ this.handleChange }
+
           />
           <button>+</button>
         </form>

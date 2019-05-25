@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-
-// import { mockList } from '../utils/mockData'
+import { getNotes } from '../../utils/fetchCalls/getNotes'
+import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
 // import ListItem from '../ListItem';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
@@ -47,30 +47,22 @@ export class Form extends Component {
   
 
   createNote = async (event) => {
+    const { title, list } = this.state;
     event.preventDefault();
-    try {
-      const response = await fetch('http://localhost:3000/api/v1/notes', {
-        method: 'POST',
-        body: JSON.stringify({
-          title: this.state.title,
-          listItems: this.state.list
-        }),
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-      const result = await response.json()
-      console.log(result)
-      this.saveNewNotesToStore()
-    } catch(e){console.log(e)}
+    const savedNote = await saveNewNote(title, list);
+    this.saveNewNotesToStore()
+    this.props.history.push('/')
+    return savedNote;
   }
 
-  saveNewNotesToStore = () => {
-    fetch('http://localhost:3000/api/v1/notes')
-    .then(response => response.json())
-    .then(results => this.props.saveNote(results))
-    .catch(error => console.log(error))
-    this.props.history.push('/')
+  saveNewNotesToStore = async () => {
+    try {
+      const results = await getNotes();
+      return this.props.saveNote(results);
+    }
+    catch (error) {
+      return console.log(error);
+    }
   }
 
   displayTitle = () => {

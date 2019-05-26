@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import Note from '../Note/Note'
-import { mockNotes } from '../../utils/mockData';
+import { getNotes } from '../../utils/fetchCalls/getNotes'
 import { updateNotes } from '../../actions/index'
 
 
 class NotesContainer extends Component  {
 
   componentDidMount = async () => {
-    // break this into api file
-    const response = await fetch('http://localhost:3000/api/v1/notes')
-    const result = await response.json()
-    this.props.updateNotes(result)
+    const notes = await getNotes();
+    this.props.updateNotes(notes)  
   }
 
   render() {
@@ -27,7 +25,12 @@ class NotesContainer extends Component  {
       </section>
     )
   }
-  }
+}
+
+NotesContainer.propTypes = {
+  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateNotes: PropTypes.func.isRequired,
+}
 
 
 export const mapStateToProps = (state) => ({

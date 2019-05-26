@@ -1,4 +1,6 @@
-export const deleteCard = async (id) => {
+import { getNotes } from "./getNotes";
+
+export const deleteNote = async (id) => {
   try {
     const url = `http://localhost:3000/api/v1/notes/${id}`;
     const response = await fetch(url, {
@@ -8,10 +10,12 @@ export const deleteCard = async (id) => {
         'content-type': 'application/json'
       }
     })
-    const result = await response.json()
-    console.log(result)
-    this.saveNewNotesToStore()
+    if (!response.ok) {
+      throw Error(response.statusText)
+    }
+    const updated = await getNotes()
+    return updated;
   } catch (e) {
-    console.log(e)
+    throw Error('Failed to delete note')
   }
 }

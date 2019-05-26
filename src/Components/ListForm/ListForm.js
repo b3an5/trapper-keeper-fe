@@ -21,19 +21,19 @@ class ListForm extends Component {
 
   render() {
     return(
-      <div>
-        <form onSubmit={ this.handleSubmit }>
-          <input
-            type='text'
-            placeholder='Words'
-            name='listItem'
-            value={ this.state.text }
-            onChange={ this.handleChange }
+      <form onSubmit={ this.handleSubmit }>
+        <input
+          className='list-item-input'
+          type='text'
+          autoFocus='true'
+          placeholder='add new'
+          name='listItem'
+          value={ this.state.text }
+          onChange={ this.handleChange }
 
-          />
-          <button>+</button>
-        </form>
-      </div>
+        />
+        <button className='add-btn'>+</button>
+      </form>
     )
   }
 }

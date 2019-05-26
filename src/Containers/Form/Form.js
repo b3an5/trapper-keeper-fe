@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { getNotes } from '../../utils/fetchCalls/getNotes'
-import { loadNotes } from '../../utils/fetchCalls/loadNotes'
+import { updateNotes } from '../../actions';
+import { deleteNote } from '../../utils/fetchCalls/deleteNote'
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
@@ -41,10 +41,9 @@ export class Form extends Component {
   createNote = async (event) => {
     const { title, list } = this.state;
     event.preventDefault();
-    const savedNote = await saveNewNote(title, list);
-    await loadNotes()
+    const updated = await saveNewNote(title, list);
     this.props.history.push('/')
-    return savedNote;
+    return this.props.updateNotes(updated);
   }
 // refactor to redirect
 
@@ -60,24 +59,25 @@ export class Form extends Component {
 
     let titleSection
 
-    (titleSet) ?
-      titleSection = title :
-      titleSection = <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/>
-
+    
     return (
-      <section>
+      <section className='form'>
         <button 
           className='delete-list-btn' 
           // onClick={this.deleteList}
           >
           Delete List
         </button>
-        { titleSection }
+          { titleSet && (<h2 className='form-title'>{title}</h2>) }
+          { !titleSet && <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> }
         <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}
+        <button 
+          className='form-cancel-btn'
+        >
+          Cancel
+        </button> 
         <button onClick={ this.createNote }>Save</button>
-
-
       </section>
       // <section className='form-section'>
       //   <article className='form-container'>
@@ -90,12 +90,6 @@ export class Form extends Component {
       //       <ul className='list'>
       //         {listContents}
       //       </ul>
-      //       <button 
-      //         className='form-cancel-btn'
-      //         // onClick= route to /
-      //       >
-      //         Cancel
-      //       </button> 
       //       <button 
       //         type='submit'
       //         className='save-btn'

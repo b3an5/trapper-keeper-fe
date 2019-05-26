@@ -4,6 +4,6 @@ export const getNotes = async () => {
   if (!response.ok) {
     throw Error("Failed to fetch notes")
   }
-  return await response.json();
+  return response.json();
 }
 

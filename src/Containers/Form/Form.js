@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { getNotes } from '../../utils/fetchCalls/getNotes'
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
-// import ListItem from '../ListItem';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 import { updateNotes } from '../../actions/index'
@@ -29,9 +28,10 @@ export class Form extends Component {
     this.setState({ title })
   }
 
-  setList = (newText) => {
-    let newListItem = { text: newText }
-    let newList = [...this.state.list, newListItem]
+  setList = (newText, index) => {
+    let newListItem = { text: newText, index }
+    let newList = Object.assign([], this.state.list, {[index]: newListItem})
+    
     this.setState({ list: newList })
   }
 
@@ -69,15 +69,13 @@ export class Form extends Component {
     this.setState({ titleSet: true })
   }
 
-  render(){
-    const { title, list, titleSet } = this.state;
 
-    // console.log(id)
-    // const listContents = listItems.map(item => {
-    //   return (
-    //     <ListItem />
-    //     )
-    // });
+  render() {
+    const { title, list, titleSet } = this.state;
+    let listItemsComponents = list.map((li, index) => {
+      console.log('li', index)
+      return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
+    })
 
     let titleSection
 
@@ -88,7 +86,8 @@ export class Form extends Component {
     return (
       <div>
         { titleSection }
-        <ListForm setList={ this.setList }/>
+        <ListForm setList={ this.setList } index={0}/>
+        {listItemsComponents}
         <button onClick={ this.createNote }>Save</button>
 
 

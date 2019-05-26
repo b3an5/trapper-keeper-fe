@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { updateNotes, toggleCompletedLi } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
+import checkbox from '../../images/completed-icon.svg'
 
 
 export class Note extends Component {
@@ -47,49 +48,33 @@ export class Note extends Component {
       return (
         <li 
           key={`${key}_${li.text}`}
-          className='complete-list-item'>
-          <input 
-            type="checkbox" 
-            className="checkbox" 
-            id={`item-${li.id}`} 
-            {...li.completed && 'checked'}
-            // value={li.text}
+          id={`item-${li.id}`} 
+          className='completed-li'>
+          <img 
+            src={checkbox} 
+            alt='checked checkbox' 
+            className='checked-icon'
             onClick={() => this.props.toggleCompletedLi(li)}
             />
-          {/* <h1
-            // type="checkbox" 
-            // className="checkbox" 
-            // id={`item-${li.id}`} 
-            // {...li.completed && 'checked'}
-            // value={li.text}
-            // onChange={() => this.handleCheckbox(li.id)}
-            onClick={() => this.props.toggleCompletedLi(li)}
-          >X</h1> */}
-          <label 
-            className='list-text'
-            for={`item-${li.id}`} 
-            onChange={() => this.handleTextChange(li.id)}>
+          <p className='completed-li-text'>
             {li.text}
-          </label>
+          </p>
         </li>
       ) 
     })
     const incompleteList = incompleteListItems.map(li => {
       return (
-        <li className='incomplete-list-item'>
-          <input 
-            type="checkbox" 
-            className="checkbox" 
-            id={`item-${li.id}`} 
-            {...li.completed && 'checked'}
-            value={li.text}
-            // onChange={() => this.handleCheckbox(li.id)}
-            onClick={() => this.props.toggleCompletedLi(li)}
-            />
+        <li 
+          className='incomplete-li'
+          id={`item-${li.id}`} >
+          <button 
+            className="mark-completed-btn"
+            id={`${li.id}-btn`} 
+            onClick={() => this.props.toggleCompletedLi(li)}>
+          </button>
           <label 
             className='list-text'
-            htmlFor={`item-${li.id}`} 
-            onChange={() => this.handleTextChange(li.id)}>
+            htmlFor={`${li.id}-btn`} >
             {li.text}
           </label>
         </li>

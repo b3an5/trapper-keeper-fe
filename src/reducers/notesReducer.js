@@ -6,12 +6,11 @@ export const notesReducer = (state = initialState, action) => {
       return action.notes
     case 'TOGGLE_COMPLETED_LI':
       const newState = state.map(not => {
-        console.log(not)
         return {...not, listItems: not.listItems.map(listItem => {
-          console.log(listItem)
           if(listItem.id === action.li.id) {
             return {id: listItem.id, completed: !listItem.completed, text: listItem.text}
           }
+          return listItem;
         })}
       })
       return newState

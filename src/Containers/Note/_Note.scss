@@ -39,3 +39,11 @@ ul {
   padding: .5rem;
 }
 
+.checked-icon {
+  height: 1rem;
+  width: 1rem;
+}
+.completed-li-text {
+  color: $completed-text;
+  text-decoration: line-through;
+}

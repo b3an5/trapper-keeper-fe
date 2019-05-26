@@ -7,26 +7,32 @@ import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 
 export class Note extends Component {
 
-  // componentDidMount
-  // patchNotes = async () => {
-  //   try {
-  //     const url = 'http://localhost:3000/api/v1/notes'
-  //     const response = await fetch(url, {
-  //       method: 'PATCH',
-  //       body: JSON.stringify({
-  //         title,
-  //         listItems
-  //       }),
-  //       headers: {
-  //         'content-type': 'application/json'
-  //       }
-  //     })
-  //     return await response.json()
-  //   } catch (e) {
+  componentDidUpdate() {
+    setTimeout(() => {
+      debugger
+      console.log('timeout')
+      this.patchNotes(this.props.title, this.props.listItems, this.props.id)
+    }, 2000);
+}
+  patchNotes = async (title, listItems, id) => {
+    try {
+      const url = `http://localhost:3000/api/v1/notes/${id}`
+      const response = await fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          title,
+          listItems
+        }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      return await response.json()
+    } catch (e) {
 
-  //     throw new Error(e, 'Unable to save note')
-  //   }
-  // }
+      throw new Error(e, 'Unable to save note')
+    }
+  }
 
   deleteCard = async () => {
     try {

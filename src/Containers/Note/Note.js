@@ -44,24 +44,45 @@ export class Note extends Component {
     const incompleteListItems = listItems.filter(li => li.completed === false)
     const completeList = completeListItems.map(li => {
       return (
-          <li className='incomplete-list-item'>
-            <input 
-              type="checkbox" 
-              className="checkbox" 
-              id={`item-${li.id}`} 
-              {...li.completed && 'checked'}
-              // value={li.text}
-              // onChange={() => this.handleCheckbox(li.id)}
-              />
-            <label 
-              className='list-text'
-              for={`item-${li.id}`} 
-              contentEditable
-              onChange={() => this.handleTextChange(li.id)}>
-              {li.text}
+        <li className='incomplete-list-item'>
+          <input 
+            type="checkbox" 
+            className="checkbox" 
+            id={`item-${li.id}`} 
+            {...li.completed && 'checked'}
+            // value={li.text}
+            // onChange={() => this.handleCheckbox(li.id)}
+            />
+          <label 
+            className='list-text'
+            for={`item-${li.id}`} 
+            contentEditable
+            onChange={() => this.handleTextChange(li.id)}>
+            {li.text}
           </label>
         </li>
-        ) 
+      ) 
+    })
+    const incompleteList = incompleteListItems.map(li => {
+      return (
+        <li className='incomplete-list-item'>
+          <input 
+            type="checkbox" 
+            className="checkbox" 
+            id={`item-${li.id}`} 
+            {...li.completed && 'checked'}
+            // value={li.text}
+            // onChange={() => this.handleCheckbox(li.id)}
+            />
+          <label 
+            className='list-text'
+            for={`item-${li.id}`} 
+            contentEditable
+            onChange={() => this.handleTextChange(li.id)}>
+            {li.text}
+          </label>
+        </li>
+      ) 
     })
     return (
       <article 
@@ -74,6 +95,11 @@ export class Note extends Component {
         <h3 className='list-title'>
           {title}
         </h3>
+        <h5>incomplete</h5>
+        <ul className='card-list'>
+          {incompleteList}
+        </ul>
+        <h5>complete</h5>
         <ul className='card-list'>
           {completeList}
         </ul>

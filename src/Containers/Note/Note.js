@@ -8,7 +8,11 @@ import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 export class Note extends Component {
 
   componentDidUpdate() {
+    setTimeout(() => {
+      debugger
+      console.log('timeout')
       this.patchNotes(this.props.title, this.props.listItems, this.props.id)
+    }, 2000);
 }
   patchNotes = async (title, listItems, id) => {
     try {

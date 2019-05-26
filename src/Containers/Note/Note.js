@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { mockNotes } from '../../utils/mockData';
 import { updateNotes } from '../../actions/index'
+import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 
 
 export class Note extends Component {
@@ -10,38 +10,24 @@ export class Note extends Component {
   // componentDidMount
 
   deleteCard = async () => {
-    console.log(this.props)
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/notes/${this.props.id}`, {
-        method: 'DELETE',
-        body: JSON.stringify({}),
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-      const result = await response.json()
-      console.log(result)
-      this.saveNewNotesToStore()
-    } catch (e) { console.log(e) }
-  }
-
-  //need to make a thunk
-  saveNewNotesToStore = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/v1/notes');
-      const results = await response.json();
-      return this.props.updateNotes(results);
-    }
-    catch (error) {
-      return console.log(error);
-    }
+      const notes = await deleteNote(this.props.id);
+      return this.props.updateNotes(notes);
+    } catch (e) { 
+      throw Error('Failed to delete list') }
   }
 
   render() {
     const { title, listItems } = this.props
-    const list = listItems.map(li => {
+    const list = listItems.map((li, i) => {
+      let key = i + 1
+      if (li === null) {
+        return (<li>''</li>)
+      }
       return (
-        <li className='list-item'>
+        <li 
+          key={`${key}_${li.text}`}
+          className='list-item'>
           <input 
             type="checkbox" 
             className="checkbox" 
@@ -52,8 +38,7 @@ export class Note extends Component {
             />
           <label 
             className='list-text'
-            for={`item-${li.id}`} 
-            contentEditable
+            htmlFor={`item-${li.id}`} 
             onChange={() => this.handleTextChange(li.id)}>
             {li.text}
         </label>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { getNotes } from '../../utils/fetchCalls/getNotes'
+import { Link, Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { updateNotes } from '../../actions';
+import { deleteNote } from '../../utils/fetchCalls/deleteNote'
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
-import { updateNotes } from '../../actions/index'
 
 export class Form extends Component {
   constructor(props) {
@@ -13,16 +14,11 @@ export class Form extends Component {
     this.state = {
       title: '',
       list: [],
-      titleSet: false
+      titleSet: false,
+      redirectHome: false
     }
   }
     
-  // handleSubmit = (e) => {
-  //   const { title, list } = this.state;
-  //   e.preventDefault();
-  //   this.props.updateNotes(title, list)
-  //   this.props.history.push('/');
-  // }
 
   setTitle = (title) => {
     this.setState({ title })
@@ -41,89 +37,66 @@ export class Form extends Component {
   }
   
   handleCancel = () => {
+    this.setState({
+      title: '',
+      list: [],
+      titleSet: false,
+      redirectHome: true
+    })
     console.log(this.props)
   }
   
-
   createNote = async (event) => {
     const { title, list } = this.state;
     event.preventDefault();
-    const savedNote = await saveNewNote(title, list);
-    this.saveNewNotesToStore()
+    const updated = await saveNewNote(title, list);
     this.props.history.push('/')
-    return savedNote;
+    return this.props.updateNotes(updated);
   }
-
-
-  saveNewNotesToStore = async () => {
-    try {
-      const results = await getNotes();
-      return this.props.updateNotes(results);
-    }
-    catch (error) {
-      return console.log(error);
-    }
-  }
+// refactor to redirect
 
   displayTitle = () => {
     this.setState({ titleSet: true })
   }
 
-
   render() {
-    const { title, list, titleSet } = this.state;
+    const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
-      console.log('li', index)
       return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
     })
 
-    let titleSection
+    if(redirectHome) {
+      return (
+        <Redirect to='/' />
+      )
+    }
 
-    (titleSet) ?
-      titleSection = title :
-      titleSection = <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/>
-
+    
     return (
-      <div>
-        { titleSection }
+      <section className='form'>
+        <button 
+          className='delete-list-btn' 
+          // onClick={this.deleteList}
+          >
+          Delete List
+        </button>
+          { titleSet && (<h2 className='form-title'>{title}</h2>) }
+          { !titleSet && <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> }
+        <hr/>
         <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}
-        <button onClick={ this.createNote }>Save</button>
-
-
-      </div>
-      // <section className='form-section'>
-      //   <article className='form-container'>
-      //     <form className='list-form' onSubmit={this.handleSubmit}>
-      //       <input 
-      //         className='title-input'
-      //         placeholder='title'
-      //         onChange={this.handleChange}
-      //         value={title}/>
-      //       <button 
-      //         className='delete-list-btn' 
-      //         // onClick={this.deleteList}
-      //         >
-      //         Delete List
-      //       </button>
-      //       <ul className='list'>
-      //         {listContents}
-      //       </ul>
-      //       <button 
-      //         className='form-cancel-btn'
-      //         // onClick= route to /
-      //       >
-      //         Cancel
-      //       </button> 
-      //       <button 
-      //         type='submit'
-      //         className='save-btn'
-      //       >
-      //         Save
-      //       </button> 
-      //     </form>
-      //   </article>
-      // </section>
+        <button 
+          className='cancel-btn'
+          onClick={this.handleCancel}
+        >
+          Cancel
+        </button> 
+        <button 
+          className='save-btn'
+          onClick={ this.createNote }>
+            Save
+        </button>
+      </section>
     )
   }
 }

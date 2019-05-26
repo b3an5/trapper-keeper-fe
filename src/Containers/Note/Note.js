@@ -65,23 +65,23 @@ export class Note extends Component {
     const completeList = completeListItems.map(li => {
       return (
         <li className='complete-list-item'>
-          {/* <input 
+          <input 
             type="checkbox" 
             className="checkbox" 
             id={`item-${li.id}`} 
             {...li.completed && 'checked'}
             // value={li.text}
-            onClick={() => !li.completed}
-            /> */}
-          <h1
+            onClick={() => this.props.toggleCompletedLi(li)}
+            />
+          {/* <h1
             // type="checkbox" 
             // className="checkbox" 
             // id={`item-${li.id}`} 
             // {...li.completed && 'checked'}
             // value={li.text}
             // onChange={() => this.handleCheckbox(li.id)}
-            onClick={() => { return !li.completed }}
-          >X</h1>
+            onClick={() => this.props.toggleCompletedLi(li)}
+          >X</h1> */}
           <label 
             className='list-text'
             for={`item-${li.id}`} 
@@ -95,15 +95,15 @@ export class Note extends Component {
     const incompleteList = incompleteListItems.map(li => {
       return (
         <li className='incomplete-list-item'>
-          <h1 
-            // type="checkbox" 
-            // className="checkbox" 
-            // id={`item-${li.id}`} 
-            // {...li.completed && 'checked'}
-            // value={li.text}
+          <input 
+            type="checkbox" 
+            className="checkbox" 
+            id={`item-${li.id}`} 
+            {...li.completed && 'checked'}
+            value={li.text}
             // onChange={() => this.handleCheckbox(li.id)}
             onClick={() => this.props.toggleCompletedLi(li)}
-            >X</h1>
+            />
           <label 
             className='list-text'
             for={`item-${li.id}`} 

@@ -40,11 +40,11 @@ export class Note extends Component {
 
   render() {
     const { title, listItems } = this.props
-    const list = listItems.map(li => {
-      if(!li.completed) {
-        return (
+    const completeListItems = listItems.filter(li => li.completed === true)
+    const incompleteListItems = listItems.filter(li => li.completed === false)
+    const completeList = completeListItems.map(li => {
+      return (
           <li className='incomplete-list-item'>
-            <h5>incomplete</h5>
             <input 
               type="checkbox" 
               className="checkbox" 
@@ -61,29 +61,7 @@ export class Note extends Component {
               {li.text}
           </label>
         </li>
-        )
-      } else if(li.completed) {
-        return (
-          <li className='complete-list-item'>
-          <h5>complete</h5>
-            <input 
-              type="checkbox" 
-              className="checkbox" 
-              id={`item-${li.id}`} 
-              {...li.completed && 'checked'}
-              // value={li.text}
-              // onChange={() => this.handleCheckbox(li.id)}
-              />
-            <label 
-              className='list-text'
-              for={`item-${li.id}`} 
-              contentEditable
-              onChange={() => this.handleTextChange(li.id)}>
-              {li.text}
-          </label>
-        </li>
-        )
-      }
+        ) 
     })
     return (
       <article 
@@ -97,7 +75,7 @@ export class Note extends Component {
           {title}
         </h3>
         <ul className='card-list'>
-          {list}
+          {completeList}
         </ul>
       </article>
     )

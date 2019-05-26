@@ -4,10 +4,14 @@ import TitleForm from './TitleForm';
 
 describe('TitleForm', () => {
   let wrapper 
-  let mockSetTitle = jest.fn();
+  const mockSetTitle = jest.fn();
+  const mockDisplayTitle = jest.fn();
 
   it('should match the snapshot', () => {
-    wrapper = shallow(<TitleForm setTitle={ mockSetTitle } />)
+    wrapper = shallow(<TitleForm 
+                        setTitle={ mockSetTitle } 
+                        displayTitle={ mockDisplayTitle }
+                      />)
 
     expect(wrapper).toMatchSnapshot();
   });

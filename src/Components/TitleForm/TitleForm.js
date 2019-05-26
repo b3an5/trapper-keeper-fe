@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const TitleForm = (props) => {
   return (
-    <form> 
+    <form onSubmit={ props.displayTitle }> 
       <button className='add-btn'>+</button>
       <input
         type='text'
@@ -14,11 +14,12 @@ const TitleForm = (props) => {
         onChange={ (event) => { props.setTitle(event.target.value) } }
       />
     </form>
-    )
+  )
 }
 
 TitleForm.propTypes = {
   setTitle: PropTypes.func.isRequired,
+  displayTitle: PropTypes.func.isRequired,
 }
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import NoteContainer from '../NotesContainer/NotesContainer'
+import NoteContainer from '../../Containers/NotesContainer/NotesContainer'
 import { Link } from 'react-router-dom'
 
 const Home = () => {

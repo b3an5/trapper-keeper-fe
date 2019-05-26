@@ -19,12 +19,15 @@ export class Note extends Component {
 
   render() {
     const { title, listItems } = this.props
-    const list = listItems.map(li => {
+    const list = listItems.map((li, i) => {
+      let key = i + 1
       if (li === null) {
         return (<li>''</li>)
       }
       return (
-        <li className='list-item'>
+        <li 
+          key={`${key}_${li.text}`}
+          className='list-item'>
           <input 
             type="checkbox" 
             className="checkbox" 

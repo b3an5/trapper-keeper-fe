@@ -6,3 +6,4 @@ export const getNotes = async () => {
   }
   return await response.json();
 }
+

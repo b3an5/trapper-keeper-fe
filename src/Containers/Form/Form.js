@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { getNotes } from '../../utils/fetchCalls/getNotes'
+import { loadNotes } from '../../utils/fetchCalls/loadNotes'
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
-import { updateNotes } from '../../actions/index'
 
 export class Form extends Component {
   constructor(props) {
@@ -17,12 +17,6 @@ export class Form extends Component {
     }
   }
     
-  // handleSubmit = (e) => {
-  //   const { title, list } = this.state;
-  //   e.preventDefault();
-  //   this.props.updateNotes(title, list)
-  //   this.props.history.push('/');
-  // }
 
   setTitle = (title) => {
     this.setState({ title })
@@ -44,36 +38,23 @@ export class Form extends Component {
     console.log(this.props)
   }
   
-
   createNote = async (event) => {
     const { title, list } = this.state;
     event.preventDefault();
     const savedNote = await saveNewNote(title, list);
-    this.saveNewNotesToStore()
+    await loadNotes()
     this.props.history.push('/')
     return savedNote;
   }
-
-
-  saveNewNotesToStore = async () => {
-    try {
-      const results = await getNotes();
-      return this.props.updateNotes(results);
-    }
-    catch (error) {
-      return console.log(error);
-    }
-  }
+// refactor to redirect
 
   displayTitle = () => {
     this.setState({ titleSet: true })
   }
 
-
   render() {
     const { title, list, titleSet } = this.state;
     let listItemsComponents = list.map((li, index) => {
-      console.log('li', index)
       return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
     })
 
@@ -84,14 +65,20 @@ export class Form extends Component {
       titleSection = <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/>
 
     return (
-      <div>
+      <section>
+        <button 
+          className='delete-list-btn' 
+          // onClick={this.deleteList}
+          >
+          Delete List
+        </button>
         { titleSection }
         <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}
         <button onClick={ this.createNote }>Save</button>
 
 
-      </div>
+      </section>
       // <section className='form-section'>
       //   <article className='form-container'>
       //     <form className='list-form' onSubmit={this.handleSubmit}>
@@ -100,12 +87,6 @@ export class Form extends Component {
       //         placeholder='title'
       //         onChange={this.handleChange}
       //         value={title}/>
-      //       <button 
-      //         className='delete-list-btn' 
-      //         // onClick={this.deleteList}
-      //         >
-      //         Delete List
-      //       </button>
       //       <ul className='list'>
       //         {listContents}
       //       </ul>

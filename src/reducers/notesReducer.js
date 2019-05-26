@@ -12,6 +12,7 @@ export const notesReducer = (state = initialState, action) => {
           if(listItem.id === action.li.id) {
             return {id: listItem.id, completed: !listItem.completed, text: listItem.text}
           }
+          return listItem
         })}
       })
       return newState

@@ -26,7 +26,12 @@ export class Note extends Component {
   render() {
     const { title, listItems } = this.props
     const validItems = listItems.filter(li => li !== null)
-    const completeListItems = validItems.filter(li => li.completed === true)
+    console.log(validItems)
+    console.log(listItems)
+    const completeListItems = validItems.filter(li => {
+      console.log(li.completed)
+      return li.completed === true
+    })
     const incompleteListItems = validItems.filter(li => li.completed === false)
     const completeList = completeListItems.map((li, i) => {
       let key = i + 1

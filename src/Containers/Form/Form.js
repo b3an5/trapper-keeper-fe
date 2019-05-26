@@ -30,9 +30,10 @@ export class Form extends Component {
     this.setState({ title })
   }
 
-  setList = (newText) => {
-    let newListItem = { text: newText }
-    let newList = [...this.state.list, newListItem]
+  setList = (newText, index) => {
+    let newListItem = { text: newText, index }
+    let newList = Object.assign([], this.state.list, {[index]: newListItem})
+    
     this.setState({ list: newList })
   }
 
@@ -70,6 +71,11 @@ export class Form extends Component {
   }
 
   render() {
+
+    let listItemsComponents = this.state.list.map((li, index) => {
+      console.log('li', index)
+      return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
+    })
     // const { id, title, listItems } = mockList;
 
     // console.log(id)
@@ -88,7 +94,8 @@ export class Form extends Component {
     return (
       <div>
         { titleSection }
-        <ListForm setList={ this.setList }/>
+        <ListForm setList={ this.setList } index={0}/>
+        {listItemsComponents}
         <button onClick={ this.createNote }>Save</button>
 
 

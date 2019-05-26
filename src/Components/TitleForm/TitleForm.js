@@ -20,6 +20,7 @@ class TitleForm extends Component {
 
       <form 
         onSubmit={this.props.displayTitle}>
+        <button className='add-btn'>+</button>
         <input
           type='text'
           className='title-input'
@@ -28,7 +29,6 @@ class TitleForm extends Component {
           value={this.state.text}
           onChange={ this.handleChange }
         />
-        <button className='add-btn'>+</button>
       </form>
     )
   }

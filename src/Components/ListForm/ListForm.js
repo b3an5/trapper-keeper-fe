@@ -22,6 +22,11 @@ class ListForm extends Component {
   render() {
     return(
       <form onSubmit={ this.handleSubmit }>
+        <button 
+          className='complete-btn'>
+            ☑️
+          {/* {completed && ('☑️')} */}
+        </button>
         <input
           className='list-item-input'
           type='text'
@@ -32,7 +37,7 @@ class ListForm extends Component {
           onChange={ this.handleChange }
 
         />
-        <button className='add-btn'>+</button>
+        <button className='delete-btn'>x</button>
       </form>
     )
   }

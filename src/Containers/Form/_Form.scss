@@ -1,3 +1,6 @@
+button {
+  padding: 0;
+}
 .form {
   width: 60%;
   min-height: 60vh;
@@ -23,4 +26,26 @@
 
 .delete-list-btn {
   float: right;
+}
+
+.complete-btn {
+  border: none;
+  padding: .5rem;
+}
+
+.delete-btn {
+  font-size: .5rem;
+  padding: 0 .2rem;
+  border-radius: 50px;
+  color: $border;
+}
+
+.add-btn {
+  border: none;
+  font-size: 2rem;
+  color: rgb(218, 212, 212);
+}
+
+.save-btn {
+  margin: 0 2rem;
 }

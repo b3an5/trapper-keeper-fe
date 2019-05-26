@@ -70,35 +70,20 @@ export class Form extends Component {
         </button>
           { titleSet && (<h2 className='form-title'>{title}</h2>) }
           { !titleSet && <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> }
+        <hr/>
         <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}
         <button 
-          className='form-cancel-btn'
+          className='cancel-btn'
         >
           Cancel
         </button> 
-        <button onClick={ this.createNote }>Save</button>
+        <button 
+          className='save-btn'
+          onClick={ this.createNote }>
+            Save
+        </button>
       </section>
-      // <section className='form-section'>
-      //   <article className='form-container'>
-      //     <form className='list-form' onSubmit={this.handleSubmit}>
-      //       <input 
-      //         className='title-input'
-      //         placeholder='title'
-      //         onChange={this.handleChange}
-      //         value={title}/>
-      //       <ul className='list'>
-      //         {listContents}
-      //       </ul>
-      //       <button 
-      //         type='submit'
-      //         className='save-btn'
-      //       >
-      //         Save
-      //       </button> 
-      //     </form>
-      //   </article>
-      // </section>
     )
   }
 }

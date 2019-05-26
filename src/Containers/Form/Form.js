@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { updateNotes } from '../../actions';
 import { deleteNote } from '../../utils/fetchCalls/deleteNote'
@@ -23,7 +23,7 @@ export class Form extends Component {
     const { id } = e.target
     id.length ? deleteNote(id) : this.handleRedirect()
   }
-  
+
   setTitle = (title) => {
     this.setState({ title })
   }
@@ -64,7 +64,8 @@ export class Form extends Component {
   render() {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
-      return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
+      let i = index + 1
+      return <ListForm setList={this.setList} textValue={li.text} index={i} key={`list-form-${i}`}/>
     })
 
     if(redirectHome) {

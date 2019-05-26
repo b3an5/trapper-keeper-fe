@@ -30,7 +30,7 @@ class ListForm extends Component {
         <input
           className='list-item-input'
           type='text'
-          autoFocus='true'
+          autoFocus={true}
           placeholder='add new'
           name='listItem'
           value={ this.state.text }

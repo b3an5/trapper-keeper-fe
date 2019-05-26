@@ -3,34 +3,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { updateNotes, toggleCompletedLi } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
+import { patchNotes } from '../../utils/fetchCalls/patchNote';
 
 
 export class Note extends Component {
 
   componentDidUpdate() {
     setTimeout(() => {
-      this.patchNotes(this.props.title, this.props.listItems, this.props.id)
+      patchNotes(this.props.title, this.props.listItems, this.props.id)
     }, 1000);
 }
-  patchNotes = async (title, listItems, id) => {
-    try {
-      const url = `http://localhost:3000/api/v1/notes/${id}`
-      const response = await fetch(url, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          title,
-          listItems
-        }),
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-      return await response.json()
-    } catch (e) {
-
-      throw new Error(e, 'Unable to save note')
-    }
-  }
 
   deleteCard = async () => {
     try {

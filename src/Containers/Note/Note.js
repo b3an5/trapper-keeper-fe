@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mockNotes } from '../../utils/mockData';
-import { updateNotes } from '../../actions/index'
+import { updateNotes, toggleCompletedLi } from '../../actions/index'
 
 
 export class Note extends Component {
@@ -25,6 +25,26 @@ export class Note extends Component {
     } catch (e) { console.log(e) }
   }
 
+  // patchNotes = async () => {
+  //   try {
+  //     const url = 'http://localhost:3000/api/v1/notes'
+  //     const response = await fetch(url, {
+  //       method: 'PATCH',
+  //       body: JSON.stringify({
+  //         title,
+  //         listItems
+  //       }),
+  //       headers: {
+  //         'content-type': 'application/json'
+  //       }
+  //     })
+  //     return await response.json()
+  //   } catch (e) {
+
+  //     throw new Error(e, 'Unable to save note')
+  //   }
+  // }
+
   //need to make a thunk
   saveNewNotesToStore = async () => {
     try {
@@ -44,15 +64,24 @@ export class Note extends Component {
     const incompleteListItems = listItems.filter(li => li.completed === false)
     const completeList = completeListItems.map(li => {
       return (
-        <li className='incomplete-list-item'>
-          <input 
+        <li className='complete-list-item'>
+          {/* <input 
             type="checkbox" 
             className="checkbox" 
             id={`item-${li.id}`} 
             {...li.completed && 'checked'}
             // value={li.text}
+            onClick={() => !li.completed}
+            /> */}
+          <h1
+            // type="checkbox" 
+            // className="checkbox" 
+            // id={`item-${li.id}`} 
+            // {...li.completed && 'checked'}
+            // value={li.text}
             // onChange={() => this.handleCheckbox(li.id)}
-            />
+            onClick={() => { return !li.completed }}
+          >X</h1>
           <label 
             className='list-text'
             for={`item-${li.id}`} 
@@ -66,14 +95,15 @@ export class Note extends Component {
     const incompleteList = incompleteListItems.map(li => {
       return (
         <li className='incomplete-list-item'>
-          <input 
-            type="checkbox" 
-            className="checkbox" 
-            id={`item-${li.id}`} 
-            {...li.completed && 'checked'}
+          <h1 
+            // type="checkbox" 
+            // className="checkbox" 
+            // id={`item-${li.id}`} 
+            // {...li.completed && 'checked'}
             // value={li.text}
             // onChange={() => this.handleCheckbox(li.id)}
-            />
+            onClick={() => this.props.toggleCompletedLi(li)}
+            >X</h1>
           <label 
             className='list-text'
             for={`item-${li.id}`} 
@@ -121,7 +151,8 @@ const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  updateNotes: (notes) => dispatch(updateNotes(notes))
+  updateNotes: (notes) => dispatch(updateNotes(notes)),
+  toggleCompletedLi: (li) => dispatch(toggleCompletedLi(li))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note)

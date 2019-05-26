@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
-import Home from '../../Containers/Home/Home'
+import Home from '../../Components/Home/Home'
 import Form from '../../Containers/Form/Form'
 
 

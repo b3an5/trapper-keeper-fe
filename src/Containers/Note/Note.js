@@ -1,13 +1,32 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { updateNotes } from '../../actions/index'
+import { updateNotes, toggleCompletedLi } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 
 
 export class Note extends Component {
 
   // componentDidMount
+  // patchNotes = async () => {
+  //   try {
+  //     const url = 'http://localhost:3000/api/v1/notes'
+  //     const response = await fetch(url, {
+  //       method: 'PATCH',
+  //       body: JSON.stringify({
+  //         title,
+  //         listItems
+  //       }),
+  //       headers: {
+  //         'content-type': 'application/json'
+  //       }
+  //     })
+  //     return await response.json()
+  //   } catch (e) {
+
+  //     throw new Error(e, 'Unable to save note')
+  //   }
+  // }
 
   deleteCard = async () => {
     try {
@@ -15,35 +34,66 @@ export class Note extends Component {
       return this.props.updateNotes(notes);
     } catch (e) { 
       throw Error('Failed to delete list') }
-  }
+    }
+
 
   render() {
     const { title, listItems } = this.props
-    const list = listItems.map((li, i) => {
+    const validItems = listItems.filter(li => li !== null)
+    const completeListItems = validItems.filter(li => li.completed === true)
+    const incompleteListItems = validItems.filter(li => li.completed === false)
+    const completeList = completeListItems.map((li, i) => {
       let key = i + 1
-      if (li === null) {
-        return (<li>''</li>)
-      }
       return (
         <li 
           key={`${key}_${li.text}`}
-          className='list-item'>
+          className='complete-list-item'>
           <input 
             type="checkbox" 
             className="checkbox" 
             id={`item-${li.id}`} 
             {...li.completed && 'checked'}
             // value={li.text}
+            onClick={() => this.props.toggleCompletedLi(li)}
+            />
+          {/* <h1
+            // type="checkbox" 
+            // className="checkbox" 
+            // id={`item-${li.id}`} 
+            // {...li.completed && 'checked'}
+            // value={li.text}
             // onChange={() => this.handleCheckbox(li.id)}
+            onClick={() => this.props.toggleCompletedLi(li)}
+          >X</h1> */}
+          <label 
+            className='list-text'
+            for={`item-${li.id}`} 
+            onChange={() => this.handleTextChange(li.id)}>
+            {li.text}
+          </label>
+        </li>
+      ) 
+    })
+    const incompleteList = incompleteListItems.map(li => {
+      return (
+        <li className='incomplete-list-item'>
+          <input 
+            type="checkbox" 
+            className="checkbox" 
+            id={`item-${li.id}`} 
+            {...li.completed && 'checked'}
+            value={li.text}
+            // onChange={() => this.handleCheckbox(li.id)}
+            onClick={() => this.props.toggleCompletedLi(li)}
             />
           <label 
             className='list-text'
             htmlFor={`item-${li.id}`} 
             onChange={() => this.handleTextChange(li.id)}>
             {li.text}
-        </label>
-      </li>
-      )
+          </label>
+        </li>
+      ) 
     })
     return (
       <article 
@@ -56,8 +106,13 @@ export class Note extends Component {
         <h3 className='list-title'>
           {title}
         </h3>
+        <h5>incomplete</h5>
         <ul className='card-list'>
-          {list}
+          {incompleteList}
+        </ul>
+        <h5>complete</h5>
+        <ul className='card-list'>
+          {completeList}
         </ul>
       </article>
     )
@@ -77,7 +132,8 @@ const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  updateNotes: (notes) => dispatch(updateNotes(notes))
+  updateNotes: (notes) => dispatch(updateNotes(notes)),
+  toggleCompletedLi: (li) => dispatch(toggleCompletedLi(li))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note)

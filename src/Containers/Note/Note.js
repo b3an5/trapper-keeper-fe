@@ -41,25 +41,47 @@ export class Note extends Component {
   render() {
     const { title, listItems } = this.props
     const list = listItems.map(li => {
-      return (
-        <li className='list-item'>
-          <input 
-            type="checkbox" 
-            className="checkbox" 
-            id={`item-${li.id}`} 
-            {...li.completed && 'checked'}
-            // value={li.text}
-            // onChange={() => this.handleCheckbox(li.id)}
-            />
-          <label 
-            className='list-text'
-            for={`item-${li.id}`} 
-            contentEditable
-            onChange={() => this.handleTextChange(li.id)}>
-            {li.text}
-        </label>
-      </li>
-      )
+      if(!li.completed) {
+        return (
+          <li className='incomplete-list-item'>
+            <input 
+              type="checkbox" 
+              className="checkbox" 
+              id={`item-${li.id}`} 
+              {...li.completed && 'checked'}
+              // value={li.text}
+              // onChange={() => this.handleCheckbox(li.id)}
+              />
+            <label 
+              className='list-text'
+              for={`item-${li.id}`} 
+              contentEditable
+              onChange={() => this.handleTextChange(li.id)}>
+              {li.text}
+          </label>
+        </li>
+        )
+      } else if(li.completed) {
+        return (
+          <li className='complete-list-item'>
+            <input 
+              type="checkbox" 
+              className="checkbox" 
+              id={`item-${li.id}`} 
+              {...li.completed && 'checked'}
+              // value={li.text}
+              // onChange={() => this.handleCheckbox(li.id)}
+              />
+            <label 
+              className='list-text'
+              for={`item-${li.id}`} 
+              contentEditable
+              onChange={() => this.handleTextChange(li.id)}>
+              {li.text}
+          </label>
+        </li>
+        )
+      }
     })
     return (
       <article 

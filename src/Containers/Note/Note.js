@@ -28,10 +28,7 @@ export class Note extends Component {
     const validItems = listItems.filter(li => li !== null)
     console.log(validItems)
     console.log(listItems)
-    const completeListItems = validItems.filter(li => {
-      console.log(li.completed)
-      return li.completed === true
-    })
+    const completeListItems = validItems.filter(li => li.completed === true)
     const incompleteListItems = validItems.filter(li => li.completed === false)
     const completeList = completeListItems.map((li, i) => {
       let key = i + 1

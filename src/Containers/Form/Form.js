@@ -19,7 +19,11 @@ export class Form extends Component {
     }
   }
     
-
+  handleDelete = (e) => {
+    const { id } = e.target
+    id.length ? deleteNote(id) : this.handleRedirect()
+  }
+  
   setTitle = (title) => {
     this.setState({ title })
   }
@@ -36,24 +40,22 @@ export class Form extends Component {
     this.setState({[name]: value})
   }
   
-  handleCancel = () => {
+  handleRedirect = () => {
     this.setState({
       title: '',
       list: [],
       titleSet: false,
       redirectHome: true
     })
-    console.log(this.props)
   }
   
   createNote = async (event) => {
-    const { title, list } = this.state;
+    const { title, list, redirectHome } = this.state;
     event.preventDefault();
     const updated = await saveNewNote(title, list);
-    this.props.history.push('/')
+    this.setState({redirectHome: true})
     return this.props.updateNotes(updated);
   }
-// refactor to redirect
 
   displayTitle = () => {
     this.setState({ titleSet: true })
@@ -70,13 +72,11 @@ export class Form extends Component {
         <Redirect to='/' />
       )
     }
-
-    
     return (
       <section className='form'>
         <button 
           className='delete-list-btn' 
-          // onClick={this.deleteList}
+          onClick={this.handleDelete}
           >
           Delete List
         </button>
@@ -87,7 +87,7 @@ export class Form extends Component {
         {listItemsComponents}
         <button 
           className='cancel-btn'
-          onClick={this.handleCancel}
+          onClick={this.handleRedirect}
         >
           Cancel
         </button> 

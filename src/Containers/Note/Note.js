@@ -30,6 +30,7 @@ export class Note extends Component {
     try {
       const response = await fetch('http://localhost:3000/api/v1/notes');
       const results = await response.json();
+      console.log('nore', results)
       return this.props.updateNotes(results);
     }
     catch (error) {

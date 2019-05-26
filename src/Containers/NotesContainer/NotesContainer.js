@@ -14,9 +14,12 @@ class NotesContainer extends Component  {
   }
 
   render() {
-    const notes = this.props.notes.map(note => {
+    const notes = this.props.notes.map((note, i) => {
       return (
-        <Note title={note.title} listItems={note.listItems} id={note.id}/>
+        <Note 
+          title={note.title} 
+          listItems={note.listItems} id={note.id}
+          key={`00${i}_${note.title}`}/>
       )
     })
     return(

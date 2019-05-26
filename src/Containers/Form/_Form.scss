@@ -1,0 +1,51 @@
+button {
+  padding: 0;
+}
+.form {
+  width: 60%;
+  min-height: 60vh;
+  background: $note-background;
+  border: $border;
+  border-radius: 10px;
+  margin: 3rem auto;
+  padding: 2rem;
+}
+
+.list-item-input,
+.title-input {
+  width: 60%;
+  border: none;
+  margin: 1rem 0;
+  font-family: inherit;
+  outline: 1px grey;
+}
+
+.title-input {
+  font-size: 1.5rem;
+}
+
+.delete-list-btn {
+  float: right;
+}
+
+.complete-btn {
+  border: none;
+  padding: .5rem;
+}
+
+.delete-btn {
+  font-size: .5rem;
+  padding: 0 .2rem;
+  border-radius: 50px;
+  color: $border;
+}
+
+.add-btn {
+  border: none;
+  font-size: 2rem;
+  color: rgb(218, 212, 212);
+}
+
+.save-btn {
+  margin: 0 2rem;
+}

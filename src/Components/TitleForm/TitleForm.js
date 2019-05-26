@@ -15,29 +15,23 @@ class TitleForm extends Component {
     this.props.setTitle(event.target.value)
   }
 
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   this.props.setTitle(this.state.title)
-  //   this.setState({ title: '' })
-  // }
-
   render() {
     return (
-      <div>
-        <form onSubmit={this.props.displayTitle}>
-          <input
-            type='text'
-            placeholder='Title'
-            name='title'
-            value={this.state.text}
-            onChange={ this.handleChange }
-          />
-          <button>+</button>
-        </form>
-      </div>
+
+      <form 
+        onSubmit={this.props.displayTitle}>
+        <button className='add-btn'>+</button>
+        <input
+          type='text'
+          className='title-input'
+          placeholder='Title'
+          name='title'
+          value={this.state.text}
+          onChange={ this.handleChange }
+        />
+      </form>
     )
   }
-
 }
 
 TitleForm.propTypes = {

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { getNotes } from '../../utils/fetchCalls/getNotes'
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
-// import ListItem from '../ListItem';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 import { updateNotes } from '../../actions/index'
@@ -11,7 +10,6 @@ import { updateNotes } from '../../actions/index'
 export class Form extends Component {
   constructor(props) {
     super(props)
-  
     this.state = {
       title: '',
       list: [],
@@ -65,30 +63,24 @@ export class Form extends Component {
     catch (error) {
       return console.log(error);
     }
+  }
 
   displayTitle = () => {
     this.setState({ titleSet: true })
   }
 
-  render() {
 
-    let listItemsComponents = this.state.list.map((li, index) => {
+  render() {
+    const { title, list, titleSet } = this.state;
+    let listItemsComponents = list.map((li, index) => {
       console.log('li', index)
       return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
     })
-    // const { id, title, listItems } = mockList;
-
-    // console.log(id)
-    // const listContents = listItems.map(item => {
-    //   return (
-    //     <ListItem />
-    //     )
-    // });
 
     let titleSection
 
-    (this.state.titleSet) ?
-      titleSection = this.state.title :
+    (titleSet) ?
+      titleSection = title :
       titleSection = <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/>
 
     return (
@@ -107,7 +99,7 @@ export class Form extends Component {
       //         className='title-input'
       //         placeholder='title'
       //         onChange={this.handleChange}
-      //         value={this.state.title}/>
+      //         value={title}/>
       //       <button 
       //         className='delete-list-btn' 
       //         // onClick={this.deleteList}
@@ -134,6 +126,11 @@ export class Form extends Component {
       // </section>
     )
   }
+}
+
+Form.propTypes = {
+  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateNotes: PropTypes.func.isRequired,
 }
 
 export const mapStateToProps = (state) => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const ListItem = ({ text, id }) => {
 
@@ -9,6 +10,10 @@ const ListItem = ({ text, id }) => {
   )
 }
 
+ListItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  id: PropTypes.number
+}
 export default ListItem;
 
 // import React, { Component } from 'react'

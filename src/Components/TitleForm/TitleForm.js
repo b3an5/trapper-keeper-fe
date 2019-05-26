@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 
 class TitleForm extends Component {
   constructor() {
@@ -24,7 +26,6 @@ class TitleForm extends Component {
       <div>
         <form onSubmit={this.props.displayTitle}>
           <input
-            // contentEditable='true'
             type='text'
             placeholder='Title'
             name='title'
@@ -38,5 +39,11 @@ class TitleForm extends Component {
   }
 
 }
+
+TitleForm.propTypes = {
+  setTitle: PropTypes.func.isRequired,
+  displayTitle: PropTypes.func.isRequired,
+}
+
 
 export default TitleForm;

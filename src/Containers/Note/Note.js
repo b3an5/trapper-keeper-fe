@@ -10,7 +10,7 @@ export class Note extends Component {
   componentDidUpdate() {
     setTimeout(() => {
       this.patchNotes(this.props.title, this.props.listItems, this.props.id)
-    }, 2000);
+    }, 1000);
 }
   patchNotes = async (title, listItems, id) => {
     try {

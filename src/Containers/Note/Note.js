@@ -44,6 +44,7 @@ export class Note extends Component {
       if(!li.completed) {
         return (
           <li className='incomplete-list-item'>
+            <h5>incomplete</h5>
             <input 
               type="checkbox" 
               className="checkbox" 
@@ -64,6 +65,7 @@ export class Note extends Component {
       } else if(li.completed) {
         return (
           <li className='complete-list-item'>
+          <h5>complete</h5>
             <input 
               type="checkbox" 
               className="checkbox" 

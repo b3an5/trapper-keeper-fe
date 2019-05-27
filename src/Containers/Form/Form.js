@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { updateNotes } from '../../actions';
 import { deleteNote } from '../../utils/fetchCalls/deleteNote'
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
@@ -13,17 +14,22 @@ export class Form extends Component {
     this.state = {
       title: '',
       list: [],
-      titleSet: false
+      titleSet: false,
+      redirectHome: false
     }
   }
     
+  handleDelete = (e) => {
+    const { id } = e.target
+    id.length ? deleteNote(id) : this.handleRedirect()
+  }
 
   setTitle = (title) => {
     this.setState({ title })
-    console.log(title)
   }
 
   setList = (newText, index) => {
+    console.log('newText', newText, 'index', index)
     let newListItem = { text: newText, index }
     let newList = Object.assign([], this.state.list, {[index]: newListItem})
     
@@ -35,37 +41,44 @@ export class Form extends Component {
     this.setState({[name]: value})
   }
   
-  handleCancel = () => {
-    console.log(this.props)
+  handleRedirect = () => {
+    this.setState({
+      title: '',
+      list: [],
+      titleSet: false,
+      redirectHome: true
+    })
   }
   
   createNote = async (event) => {
-    const { title, list } = this.state;
+    const { title, list, redirectHome } = this.state;
     event.preventDefault();
     const updated = await saveNewNote(title, list);
-    this.props.history.push('/')
+    this.setState({redirectHome: true})
     return this.props.updateNotes(updated);
   }
-// refactor to redirect
 
   displayTitle = () => {
     this.setState({ titleSet: true })
   }
 
   render() {
-    const { title, list, titleSet } = this.state;
+    const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
-      return <ListForm setList={this.setList} textValue={li.text} index={index+1} />
+      let i = index + 1
+      return <ListForm setList={this.setList} textValue={li.text} index={i} key={`list-form-${i}`}/>
     })
 
-    let titleSection
-
-    
+    if(redirectHome) {
+      return (
+        <Redirect to='/' />
+      )
+    }
     return (
       <section className='form'>
         <button 
           className='delete-list-btn' 
-          // onClick={this.deleteList}
+          onClick={this.handleDelete}
           >
           Delete List
         </button>
@@ -76,6 +89,7 @@ export class Form extends Component {
         {listItemsComponents}
         <button 
           className='cancel-btn'
+          onClick={this.handleRedirect}
         >
           Cancel
         </button> 
@@ -90,8 +104,8 @@ export class Form extends Component {
 }
 
 Form.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateNotes: PropTypes.func.isRequired,
+  notes: PropTypes.arrayOf(PropTypes.object),
+  updateNotes: PropTypes.func,
 }
 
 export const mapStateToProps = (state) => ({

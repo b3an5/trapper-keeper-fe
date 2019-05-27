@@ -4,38 +4,160 @@ ul {
   margin: 0;
 }
 
-
-
 .note-card {
-  min-width: 10rem;
+  min-width: 8rem;
   width: 100%;
   display: grid;
-  grid-template-areas: 
-    " title delete "
-    " checkbox text ";
+  grid-template-areas:
+    " header header header "
+    " wtg wtg wtg"
+    " add add add "
+    " ul ul ul "
+    " complete . ."
+    " done done ."
+    " done done edit";
+  grid-template-columns: 1fr 1fr 2rem;
   border: solid grey 2px;
   border-radius: 5px;
   padding: .5rem;
   background: rgba(255, 255, 255, 0.491);
 }
 
+.empty-list-message {
+  grid-area: wtg;
+  text-align: center;
+}
+
+.card-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 2px white;
+  margin: 0 0 .5rem 0;
+}
 .list-title {
-  grid-area: title;
+  width: 100%;
   text-transform: uppercase;
   margin: 5px;
 }
 
 .delete-card-btn {
-  grid-area: delete;
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;
 }
 
-// .list-item {
-//   margin: .5rem, 0;
-// }
-.list-text {
-  padding: .5rem;
+.incomplete-ul {
+  grid-area: ul;
 }
 
+.complete-ul {
+  grid-area: done;
+}
+
+.list-text {
+  padding: 0 .5rem;
+  // margin: .1rem;;
+}
+
+.checked-icon {
+  max-height: 1rem;
+  max-width: 1rem;
+}
+
+.complete-heading {
+  grid-area: complete;
+  margin: 1rem .5rem 0 .5rem;
+}
+
+.completed-li-text {
+  display: inline;
+  color: $completed-text;
+  text-decoration: line-through;
+  margin: 3px 0;
+}
+
+.delete-li-btn,
+.remove-icon,
+.checkbox-hover,
+.note-complete-btn {
+  border-radius: 100px;
+}
+
+.edit-wrapper {
+  width: 2rem;
+  grid-area: edit;
+  display: flex;
+  align-items: flex-end;
+}
+
+.edit-note-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  filter: opacity(40%);
+}
+
+.checkbox-hover {
+  filter: opacity(0%);
+  height: 1rem;
+  width: 1rem;
+
+  &:hover {
+    filter: opacity(40%);
+  }
+
+  &:active {
+    outline: red;
+  }
+}
+
+.incomplete-li {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  align-items: center;
+}
+
+.completed-li,
+.add-wrapper {
+  display: flex;
+  align-items: center;
+  color: #959494;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.add-new-text {
+  display: inline;
+  text-transform: lowercase;
+  margin: .2rem .5rem;
+  line-height: 1.5;
+}
+
+.delete-li-btn {
+  height: .7rem;
+  width: .7rem;
+  background: transparent;
+  border: none;
+
+  &:hover {
+    background: rgb(255, 245, 245);
+  }
+}
+
+.note-complete-btn {
+  border: 1px solid grey;
+
+  &:hover {
+    border: 1px solid rgb(25, 159, 134);
+  }
+}
+
+.remove-icon {
+  border: none;
+  height: .8rem;
+  width: .8rem;
+
+  &:hover {
+    filter: invert(0.4) sepia(1) saturate(4) hue-rotate(306deg) brightness(0.68);
+  }
+}

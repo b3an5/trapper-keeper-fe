@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NotesContainer, mapStateToProps, mapDispatchToProps } from './NotesContainer';
-// import NotesContainer from './NotesContainer'
 import { updateNotes } from '../../actions'
 
 describe('NotesContainer', () => {
@@ -15,13 +14,30 @@ describe('NotesContainer', () => {
     }
   ]; 
 
-  const mockUpdateNotes=jest.fn()
+  const mockUpdateNotes=jest.fn();
+  const mockGetNotes=jest.fn();
 
   beforeEach(() => {
     wrapper = shallow(
       <NotesContainer notes={ mockNotes } updateNotes={ mockUpdateNotes }/>
     )
   })
+
+  it.skip('should invoke getNotes after ComponentDidMount', async () => {
+    const spy = jest.spyOn(NotesContainer.prototype, 'getNotes')
+    wrapper = mount(<NotesContainer {...props} />)
+
+    await wrapper.instance().getNotes();
+
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it.skip('should invoke updateNotes after ComponentDidMount', () => {
+    const spy = jest.spyOn(NotesContainer.prototype, 'updateNotes')
+    wrapper = mount(<NotesContainer {...props} />)
+
+
+  } )
 
   it.skip('should match component snapshot', () => {
     expect(wrapper).toMatchSnapshot();

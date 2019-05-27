@@ -7,6 +7,7 @@ import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 import checkbox from '../../images/completed-icon.svg'
 import checkboxHover from '../../images/completed-hover-icon.svg'
 import edit from '../../images/edit-icon.svg'
+import addNew from '../../images/add-new-icon.svg'
 import remove from '../../images/remove-icon.svg'
 
 
@@ -53,14 +54,14 @@ export class Note extends Component {
         <li 
           key={`${key}_${li.text}`}
           id={`item-${li.id}`} 
+          onClick={() => this.props.toggleCompletedLi(li)}
           className='completed-li'>
           <img 
             src={checkbox} 
             alt='checked checkbox' 
             className='checked-icon'
-            onClick={() => this.props.toggleCompletedLi(li)}
             />
-          <p className='completed-li-text'>
+          <p className='completed-li-text list-text'>
             {li.text}
           </p>
         </li>
@@ -72,7 +73,7 @@ export class Note extends Component {
           className='incomplete-li'
           id={`item-${li.id}`} >
           <button 
-            className="note-complete-btn"
+            className="note-complete-btn round-btn"
             id={`${li.id}-btn`} 
             onClick={() => this.props.toggleCompletedLi(li)}>
               <img 
@@ -110,11 +111,28 @@ export class Note extends Component {
           onClick={this.deleteCard}>
             x
         </button>
+        {incompleteList.length === 0 && 
+        <p className='empty-list-message'>You completed everything on your list! Cheers!</p>
+        }
         <ul className='incomplete-ul'>
           {incompleteList}
+        <Link to={`/notes/${id}`}>
+          <div className='add-wrapper'>
+            <img
+              src={addNew}
+              className='add-new-icon round-btn'
+              alt=''/>
+            <p className='add-new-text'>Add New</p>
+          </div>
+        </Link>
         </ul>
-        <h5 className='complete-heading'>complete</h5>
+        {completeList[0] && 
+          <h5 className='complete-heading'>
+            complete
+          </h5>}
+        
         <ul className='complete-ul'>
+
           {completeList}
         </ul>
         <div className='edit-wrapper'>

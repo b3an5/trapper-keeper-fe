@@ -12,14 +12,22 @@ ul {
   display: grid;
   grid-template-areas:
     " title title delete "
+    " wtg wtg wtg"
+    " add add add "
     " ul ul ul "
     " complete . ."
-    " done done done"
-    " . . edit";
+    " done done ."
+    " done done edit";
+  grid-template-columns: 1fr 1fr 2rem;
   border: solid grey 2px;
   border-radius: 5px;
   padding: .5rem;
   background: rgba(255, 255, 255, 0.491);
+}
+
+.empty-list-message {
+  grid-area: wtg;
+  text-align: center;
 }
 
 .list-title {
@@ -45,6 +53,7 @@ ul {
 
 .list-text {
   padding: 0 .5rem;
+  // margin: .1rem;;
 }
 
 .checked-icon {
@@ -54,13 +63,14 @@ ul {
 
 .complete-heading {
   grid-area: complete;
-  margin: 0;
+  margin: 1rem .5rem 0 .5rem;
 }
 
 .completed-li-text {
   display: inline;
   color: $completed-text;
   text-decoration: line-through;
+  margin: 3px 0;
 }
 
 .delete-li-btn,
@@ -71,12 +81,16 @@ ul {
 }
 
 .edit-wrapper {
+  width: 2rem;
   grid-area: edit;
+  display: flex;
+  align-items: flex-end;
 }
 
 .edit-note-icon {
   height: 1.5rem;
   width: 1.5rem;
+  filter: opacity(40%);
 }
 
 .checkbox-hover {
@@ -93,6 +107,28 @@ ul {
   }
 }
 
+.incomplete-li {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  align-items: center;
+}
+
+.completed-li,
+.add-wrapper {
+  display: flex;
+  align-items: center;
+  color: #959494;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.add-new-text {
+  display: inline;
+  text-transform: lowercase;
+  margin: .2rem .5rem;
+  line-height: 1.5;
+}
+
 .delete-li-btn {
   height: .7rem;
   width: .7rem;
@@ -105,8 +141,6 @@ ul {
 }
 
 .note-complete-btn {
-  height: 1.1rem;
-  width: 1.1rem;
   border: 1px solid grey;
 
   &:hover {

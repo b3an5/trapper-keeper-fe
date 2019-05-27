@@ -103,14 +103,16 @@ export class Note extends Component {
     return (
       <article 
         className='note-card'>
-        <h3 className='list-title'>
-          {title}
-        </h3>
-        <button
-          className='delete-card-btn delete-btn'
-          onClick={this.deleteCard}>
-            x
-        </button>
+        <header className='card-header'>
+          <h3 className='list-title'>
+            {title}
+          </h3>
+          <button
+            className='delete-card-btn delete-btn'
+            onClick={this.deleteCard}>
+              x
+          </button>
+        </header>
         {incompleteList.length === 0 && 
         <p className='empty-list-message'>You completed everything on your list! Cheers!</p>
         }

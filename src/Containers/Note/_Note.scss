@@ -4,14 +4,12 @@ ul {
   margin: 0;
 }
 
-
-
 .note-card {
-  min-width: 10rem;
+  min-width: 8rem;
   width: 100%;
   display: grid;
   grid-template-areas:
-    " title title delete "
+    " header header header "
     " wtg wtg wtg"
     " add add add "
     " ul ul ul "
@@ -30,14 +28,20 @@ ul {
   text-align: center;
 }
 
+.card-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 2px white;
+  margin: 0 0 .5rem 0;
+}
 .list-title {
-  grid-area: title;
+  width: 100%;
   text-transform: uppercase;
   margin: 5px;
 }
 
 .delete-card-btn {
-  grid-area: delete;
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;

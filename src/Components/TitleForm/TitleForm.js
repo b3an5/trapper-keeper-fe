@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const TitleForm = (props) => {
   if(props.existingTitle !== '') {
     return (
-      <form onSubmit={ props.displayEditedTitle }> 
+      <form onSubmit={ props.displayTitle }> 
         <button className='add-btn'>+</button>
         <input
           type='text'

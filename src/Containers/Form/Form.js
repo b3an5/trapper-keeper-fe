@@ -18,6 +18,22 @@ export class Form extends Component {
       redirectHome: false
     }
   }
+
+  componentDidMount() {
+    if(this.props.match.path !== '/new-note') {
+      console.log(this.props.match.params.id)
+      console.log(this.props.notes)
+      const currentNote = this.props.notes.find((note) => {
+        console.log(note.id)
+        return note.id == this.props.match.params.id
+      })
+      console.log(currentNote)
+      this.setState({
+        title: currentNote.title,
+        list: currentNote.listItems
+      })
+    }
+  }
     
   handleDelete = (e) => {
     const { id } = e.target

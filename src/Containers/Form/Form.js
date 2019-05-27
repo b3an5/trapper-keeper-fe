@@ -94,7 +94,7 @@ export class Form extends Component {
           Delete List
         </button>
           { titleSet && (<h2 className='form-title'>{title}</h2>) }
-          { !titleSet && <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> }
+          { !titleSet && <TitleForm setTitle={this.setTitle} existingTitle={title} displayTitle={ this.displayTitle }/> }
         <hr/>
         <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}

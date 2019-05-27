@@ -35,9 +35,14 @@ ul {
   height: 1.5rem;
 }
 
-// .list-item {
-//   margin: .5rem, 0;
-// }
+.incomplete-ul {
+  grid-area: ul;
+}
+
+.complete-ul {
+  grid-area: done;
+}
+
 .list-text {
   padding: 0 .5rem;
 }
@@ -47,18 +52,29 @@ ul {
   max-width: 1rem;
 }
 
+.complete-heading {
+  grid-area: complete;
+  margin: 0;
+}
+
 .completed-li-text {
+  display: inline;
   color: $completed-text;
   text-decoration: line-through;
 }
 
+.delete-li-btn,
+.remove-icon,
 .checkbox-hover,
 .note-complete-btn {
-  border-radius: 50px;
+  border-radius: 100px;
+}
+
+.edit-wrapper {
+  grid-area: edit;
 }
 
 .edit-note-icon {
-  grid-area: edit;
   height: 1.5rem;
   width: 1.5rem;
 }
@@ -67,19 +83,43 @@ ul {
   filter: opacity(0%);
   height: 1rem;
   width: 1rem;
-  border: 1px solid grey ;
-  // visibility: hidden;
+
   &:hover {
-    filter: opacity(80%);
-    // visibility: visible;
+    filter: opacity(40%);
+  }
+
+  &:active {
+    outline: red;
+  }
+}
+
+.delete-li-btn {
+  height: .7rem;
+  width: .7rem;
+  background: transparent;
+  border: none;
+
+  &:hover {
+    background: rgb(255, 245, 245);
   }
 }
 
 .note-complete-btn {
-  height: 1.2rem;
+  height: 1.1rem;
+  width: 1.1rem;
+  border: 1px solid grey;
 
-  // &:hover {
-  //   // border: 1px solid #b7817f;
-  // }
+  &:hover {
+    border: 1px solid rgb(25, 159, 134);
+  }
+}
 
+.remove-icon {
+  border: none;
+  height: .8rem;
+  width: .8rem;
+
+  &:hover {
+    filter: invert(0.4) sepia(1) saturate(4) hue-rotate(306deg) brightness(0.68);
+  }
 }

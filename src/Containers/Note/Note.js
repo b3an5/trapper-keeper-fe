@@ -7,6 +7,7 @@ import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 import checkbox from '../../images/completed-icon.svg'
 import checkboxHover from '../../images/completed-hover-icon.svg'
 import edit from '../../images/edit-icon.svg'
+import remove from '../../images/remove-icon.svg'
 
 
 export class Note extends Component {
@@ -75,9 +76,9 @@ export class Note extends Component {
             id={`${li.id}-btn`} 
             onClick={() => this.props.toggleCompletedLi(li)}>
               <img 
-                src={checkboxHover}
+                src={checkbox}
                 alt=''
-                className='checkbox-hover'
+                className='checkbox-hover' 
               />
           </button>
           <label 
@@ -86,10 +87,14 @@ export class Note extends Component {
             {li.text}
           </label>
           <button
-          className='delete-li-btn round-btn'
+          className='delete-li-btn'
           // onClick={this.deleteLi}
           >
-          x
+          <img 
+            src={remove}
+            alt=''
+            className='remove-icon'
+          />
           </button>
         </li>
       ) 
@@ -97,14 +102,14 @@ export class Note extends Component {
     return (
       <article 
         className='note-card'>
+        <h3 className='list-title'>
+          {title}
+        </h3>
         <button
           className='delete-card-btn delete-btn'
           onClick={this.deleteCard}>
             x
         </button>
-        <h3 className='list-title'>
-          {title}
-        </h3>
         <ul className='incomplete-ul'>
           {incompleteList}
         </ul>
@@ -112,13 +117,15 @@ export class Note extends Component {
         <ul className='complete-ul'>
           {completeList}
         </ul>
-        <Link to={`/notes/${id}`}>
-          <img 
-            src={edit} 
-            className='edit-note-icon' 
-            alt='Link to edit this note' 
-            role='button'/>
-        </Link>
+        <div className='edit-wrapper'>
+          <Link to={`/notes/${id}`}>
+            <img 
+              src={edit} 
+              className='edit-note-icon' 
+              alt='Link to edit this note' 
+              role='button'/>
+          </Link>
+        </div>
       </article>
     )
   }

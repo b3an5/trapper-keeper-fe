@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { updateNotes, toggleCompletedLi } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 import checkbox from '../../images/completed-icon.svg'
+import checkboxHover from '../../images/completed-hover-icon.svg'
+import edit from '../../images/edit-icon.svg'
 
 
 export class Note extends Component {
@@ -39,10 +42,10 @@ export class Note extends Component {
 
 
   render() {
-    const { title, listItems } = this.props
+    const { title, listItems, id } = this.props
     const validItems = listItems.filter(li => li !== null)
-    const completeListItems = validItems.filter(li => li.completed === true)
-    const incompleteListItems = validItems.filter(li => li.completed === false)
+    const completeListItems = validItems.filter(li => li.completed === true);
+    const incompleteListItems = validItems.filter(li => li.completed === false);
     const completeList = completeListItems.map((li, i) => {
       let key = i + 1
       return (
@@ -68,15 +71,26 @@ export class Note extends Component {
           className='incomplete-li'
           id={`item-${li.id}`} >
           <button 
-            className="mark-completed-btn"
+            className="note-complete-btn"
             id={`${li.id}-btn`} 
             onClick={() => this.props.toggleCompletedLi(li)}>
+              <img 
+                src={checkboxHover}
+                alt=''
+                className='checkbox-hover'
+              />
           </button>
           <label 
             className='list-text'
             htmlFor={`${li.id}-btn`} >
             {li.text}
           </label>
+          <button
+          className='delete-li-btn round-btn'
+          // onClick={this.deleteLi}
+          >
+          x
+          </button>
         </li>
       ) 
     })
@@ -84,21 +98,27 @@ export class Note extends Component {
       <article 
         className='note-card'>
         <button
-          className='delete-card-btn'
+          className='delete-card-btn delete-btn'
           onClick={this.deleteCard}>
-            X
+            x
         </button>
         <h3 className='list-title'>
           {title}
         </h3>
-        <h5>incomplete</h5>
-        <ul className='card-list'>
+        <ul className='incomplete-ul'>
           {incompleteList}
         </ul>
-        <h5>complete</h5>
-        <ul className='card-list'>
+        <h5 className='complete-heading'>complete</h5>
+        <ul className='complete-ul'>
           {completeList}
         </ul>
+        <Link to={`/notes/${id}`}>
+          <img 
+            src={edit} 
+            className='edit-note-icon' 
+            alt='Link to edit this note' 
+            role='button'/>
+        </Link>
       </article>
     )
   }

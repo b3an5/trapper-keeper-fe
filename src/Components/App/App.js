@@ -10,6 +10,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={ Home } />
         <Route exact path='/new-note' component={ Form } />
+        <Route exact path='/notes/:id' component={ Form } />
       </Switch>
     </>
   );  

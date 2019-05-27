@@ -72,7 +72,7 @@ Note.propTypes = {
   updateNotes: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     notes: state.notes || []
 })
 

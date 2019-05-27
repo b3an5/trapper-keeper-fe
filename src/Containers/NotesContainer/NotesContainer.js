@@ -6,7 +6,7 @@ import { getNotes } from '../../utils/fetchCalls/getNotes'
 import { updateNotes } from '../../actions/index'
 
 
-class NotesContainer extends Component  {
+export class NotesContainer extends Component  {
 
   componentDidMount = async () => {
     const notes = await getNotes();

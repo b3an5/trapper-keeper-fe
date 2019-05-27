@@ -26,10 +26,10 @@ export class Form extends Component {
 
   setTitle = (title) => {
     this.setState({ title })
-    console.log(title)
   }
 
   setList = (newText, index) => {
+    console.log('newText', newText, 'index', index)
     let newListItem = { text: newText, index }
     let newList = Object.assign([], this.state.list, {[index]: newListItem})
     
@@ -104,8 +104,8 @@ export class Form extends Component {
 }
 
 Form.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateNotes: PropTypes.func.isRequired,
+  notes: PropTypes.arrayOf(PropTypes.object),
+  updateNotes: PropTypes.func,
 }
 
 export const mapStateToProps = (state) => ({

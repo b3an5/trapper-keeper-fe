@@ -26,7 +26,6 @@ export class Form extends Component {
 
   setTitle = (title) => {
     this.setState({ title })
-    console.log(title)
   }
 
   setList = (newText, index) => {

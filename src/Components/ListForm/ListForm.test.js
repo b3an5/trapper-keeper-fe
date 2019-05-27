@@ -14,6 +14,9 @@ describe('ListForm', () => {
     preventDefault: () => { }
   }
 
+  const mockState = { text: 'Test Item'};
+  const mockIndex = 0
+
   beforeEach(() => {
     wrapper = shallow(<ListForm 
                         setList={ mockSetList }
@@ -28,14 +31,18 @@ describe('ListForm', () => {
   it('should set state when handleChange is called', () => {
     wrapper.instance().handleChange(mockEvent);
 
-    expect(wrapper.state().text).toEqual('Test Item');
+    expect(wrapper.state().text).toEqual(mockState.text);
   });
 
-  it.skip('should call setList when handleSubmit has been called', () => {
-    const setListSpy = jest.spyOn(wrapper.instance(), 'props.setList')
-    
+  it('should call setList when handleSubmit is called', () => {    
+    wrapper.instance().handleChange(mockEvent);
     wrapper.instance().handleSubmit(mockEvent);
 
-    expect(setListSpy).toHaveBeenCalledTimes(1);
+    expect(mockSetList).toHaveBeenCalled();
+    expect(mockSetList).toHaveBeenCalledWith(mockState.text, mockIndex )
   });
+
+  it('should match component snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
+  })
 });

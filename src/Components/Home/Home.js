@@ -1,5 +1,5 @@
 import React from 'react'
-import NoteContainer from '../../Containers/NotesContainer/NotesContainer'
+import NotesContainer from '../../Containers/NotesContainer/NotesContainer'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
               New Note
             </button>
           </Link>
-          <NoteContainer />
+          <NotesContainer />
       </main>
     );
   }

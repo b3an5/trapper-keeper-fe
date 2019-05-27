@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { updateNotes, toggleCompletedLi } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
+import checkbox from '../../images/completed-icon.svg'
+import edit from '../../images/edit-icon.svg'
+import addNew from '../../images/add-new-icon.svg'
+import remove from '../../images/remove-icon.svg'
 import { patchNotes } from '../../utils/fetchCalls/patchNote';
 
 
@@ -24,82 +29,108 @@ export class Note extends Component {
 
 
   render() {
-    const { title, listItems } = this.props
+    const { title, listItems, id } = this.props
     const validItems = listItems.filter(li => li !== null)
-    const completeListItems = validItems.filter(li => li.completed === true)
-    const incompleteListItems = validItems.filter(li => li.completed === false)
+    const completeListItems = validItems.filter(li => li.completed === true);
+    const incompleteListItems = validItems.filter(li => li.completed === false);
     const completeList = completeListItems.map((li, i) => {
       let key = i + 1
       return (
         <li 
           key={`${key}_${li.text}`}
-          className='complete-list-item'>
-          <input 
-            type="checkbox" 
-            className="checkbox" 
-            id={`item-${li.id}`} 
-            {...li.completed && 'checked'}
-            // value={li.text}
-            onClick={() => this.props.toggleCompletedLi(li)}
+          id={`item-${li.id}`} 
+          onClick={() => this.props.toggleCompletedLi(li)}
+          className='completed-li'>
+          <img 
+            src={checkbox} 
+            alt='checked checkbox' 
+            className='checked-icon'
             />
-          {/* <h1
-            // type="checkbox" 
-            // className="checkbox" 
-            // id={`item-${li.id}`} 
-            // {...li.completed && 'checked'}
-            // value={li.text}
-            // onChange={() => this.handleCheckbox(li.id)}
-            onClick={() => this.props.toggleCompletedLi(li)}
-          >X</h1> */}
-          <label 
-            className='list-text'
-            for={`item-${li.id}`} 
-            onChange={() => this.handleTextChange(li.id)}>
+          <p className='completed-li-text list-text'>
             {li.text}
-          </label>
+          </p>
         </li>
       ) 
     })
     const incompleteList = incompleteListItems.map(li => {
       return (
-        <li className='incomplete-list-item'>
-          <input 
-            type="checkbox" 
-            className="checkbox" 
-            id={`item-${li.id}`} 
-            {...li.completed && 'checked'}
-            value={li.text}
-            // onChange={() => this.handleCheckbox(li.id)}
-            onClick={() => this.props.toggleCompletedLi(li)}
-            />
+        <li 
+          className='incomplete-li'
+          id={`item-${li.id}`} >
+          <button 
+            className="note-complete-btn round-btn"
+            id={`${li.id}-btn`} 
+            onClick={() => this.props.toggleCompletedLi(li)}>
+              <img 
+                src={checkbox}
+                alt=''
+                className='checkbox-hover' 
+              />
+          </button>
           <label 
             className='list-text'
-            htmlFor={`item-${li.id}`} 
-            onChange={() => this.handleTextChange(li.id)}>
+            htmlFor={`${li.id}-btn`} >
             {li.text}
           </label>
+          <button
+          className='delete-li-btn'
+          // onClick={this.deleteLi}
+          >
+          <img 
+            src={remove}
+            alt=''
+            className='remove-icon'
+          />
+          </button>
         </li>
       ) 
     })
     return (
       <article 
         className='note-card'>
-        <button
-          className='delete-card-btn'
-          onClick={this.deleteCard}>
-            X
-        </button>
-        <h3 className='list-title'>
-          {title}
-        </h3>
-        <h5>incomplete</h5>
-        <ul className='card-list'>
+        <header className='card-header'>
+          <h3 className='list-title'>
+            {title}
+          </h3>
+          <button
+            className='delete-card-btn delete-btn'
+            onClick={this.deleteCard}>
+              x
+          </button>
+        </header>
+        {incompleteList.length === 0 && 
+        <p className='empty-list-message'>You completed everything on your list! Cheers!</p>
+        }
+        <ul className='incomplete-ul'>
           {incompleteList}
+        <Link to={`/notes/${id}`}>
+          <div className='add-wrapper'>
+            <img
+              src={addNew}
+              className='add-new-icon round-btn'
+              alt=''/>
+            <p className='add-new-text'>Add New</p>
+          </div>
+        </Link>
         </ul>
-        <h5>complete</h5>
-        <ul className='card-list'>
+        {completeList[0] && 
+          <h5 className='complete-heading'>
+            complete
+          </h5>}
+        
+        <ul className='complete-ul'>
+
           {completeList}
         </ul>
+        <div className='edit-wrapper'>
+          <Link to={`/notes/${id}`}>
+            <img 
+              src={edit} 
+              className='edit-note-icon' 
+              alt='Link to edit this note' 
+              role='button'/>
+          </Link>
+        </div>
       </article>
     )
   }

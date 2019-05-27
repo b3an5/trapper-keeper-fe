@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import checkboxHover from '../../images/completed-hover-icon.svg'
+
 
 class ListForm extends Component {
   constructor() {
@@ -23,10 +25,14 @@ class ListForm extends Component {
     return(
       <form onSubmit={ this.handleSubmit }>
         <button 
-          className='complete-btn'>
-            ☑️
-          {/* {completed && ('☑️')} */}
-        </button>
+            className="form-complete-btn complete-btn">
+            {/* // onClick={() => this.props.toggleCompletedLi(li)}> */}
+              <img 
+                src={checkboxHover}
+                alt=''
+                className='checkbox-hover'
+              />
+          </button>
         <input
           className='list-item-input'
           type='text'
@@ -36,7 +42,7 @@ class ListForm extends Component {
           value={ this.state.text }
           onChange={ this.handleChange }
         />
-        <button className='delete-btn'>x</button>
+        <button className='lf-delete-btn round-btn btn'>x</button>
       </form>
     )
   }

@@ -1,6 +1,8 @@
 button {
   padding: 0;
+  cursor: pointer;
 }
+
 .form {
   width: 60%;
   min-height: 60vh;
@@ -28,16 +30,16 @@ button {
   float: right;
 }
 
-.complete-btn {
+.form-complete-btn {
   border: none;
   padding: .5rem;
 }
 
-.delete-btn {
+.round-btn {
   font-size: .5rem;
-  padding: 0 .2rem;
+  height: 1.1rem;
+  width: 1.1rem;
   border-radius: 50px;
-  color: $border;
 }
 
 .add-btn {

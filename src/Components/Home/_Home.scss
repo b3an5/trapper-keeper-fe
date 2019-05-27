@@ -1,4 +1,40 @@
+main {
+  color: rgb(87, 87, 87);
+}
+
 .header {
   font-family: 'Corben', cursive;
+  font-size: 1.8rem;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  margin: 0;
+}
+.new-note-wrapper {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-note-link{
+  width: 90%;
+}
+
+.new-note-btn {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: inherit;
+  width: 100%;
+}
+
+.add-new-icon {
+  filter: opacity(50%);
+  height: 1.6rem;
+  width: 1.6rem;
+  padding: 0 10px 0 0;
 }

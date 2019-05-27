@@ -41,12 +41,12 @@ class ListForm extends Component {
           name='listItem'
           value={ this.state.text }
           onChange={ this.handleChange }
-
         />
         <button className='lf-delete-btn round-btn btn'>x</button>
       </form>
     )
   }
+
 }
 ListForm.propTypes = {
   setList: PropTypes.func.isRequired

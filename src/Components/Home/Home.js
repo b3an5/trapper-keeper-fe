@@ -1,5 +1,5 @@
 import React from 'react'
-import NoteContainer from '../NotesContainer/NotesContainer'
+import NotesContainer from '../../Containers/NotesContainer/NotesContainer'
 import { Link } from 'react-router-dom'
 import addNew from '../../images/add-list.svg'
 
@@ -24,7 +24,7 @@ const Home = () => {
             </Link>
           </div>
         </header>
-        <NoteContainer />
+        <NotesContainer />
       </main>
     );
   }

@@ -35,12 +35,12 @@ class ListForm extends Component {
           name='listItem'
           value={ this.state.text }
           onChange={ this.handleChange }
-
         />
         <button className='delete-btn'>x</button>
       </form>
     )
   }
+
 }
 ListForm.propTypes = {
   setList: PropTypes.func.isRequired

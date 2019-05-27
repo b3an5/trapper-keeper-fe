@@ -5,15 +5,18 @@ import { updateNotes } from '../../actions'
 
 describe('Note', () => {
   let wrapper;
+  const mockNote = { id: 824, title: 'Test', listItems: [
+      {id: 248, text: 'Test Item'}
+    ]}
 
   it('should match the snapshot', () => {
     wrapper = shallow(<Note 
-                        title={}
-                        listItems={}
-                        key={}
+                        title={mockNote.title}
+                        listItems={mockNote.listItems}
+                        key={mockNote.id}
                       />)
     
-    expect(shallow).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   describe('mapStateToProps', () => {

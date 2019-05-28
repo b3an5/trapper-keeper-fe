@@ -12,13 +12,20 @@ class ListForm extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.textValue !== '') {
+      this.setState({text: this.props.textValue})
+    }
+  }
+
   handleChange = (event) => {
     this.setState({ text: event.target.value })
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.setList(this.state.text, this.props.index)
+    this.props.setList(this.state.text, this.props.index, this.props.id)
+    this.setState({text: ''})
   }
 
   render() {

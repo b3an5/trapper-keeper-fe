@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { updateNotes } from '../../actions';
-import { deleteNote } from '../../utils/fetchCalls/deleteNote'
-import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
+import { deleteNote } from '../../utils/fetchCalls/deleteNote';
+import { saveNewNote } from '../../utils/fetchCalls/saveNewNote';
+import { patchNote } from '../../utils/fetchCalls/patchNote';
+import { getNotes } from '../../utils/fetchCalls/getNotes';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 
@@ -15,7 +17,8 @@ export class Form extends Component {
       title: '',
       list: [],
       titleSet: false,
-      redirectHome: false
+      redirectHome: false,
+      editingNote: false
     }
   }
 
@@ -26,7 +29,8 @@ export class Form extends Component {
       })
       this.setState({
         title: currentNote.title,
-        list: currentNote.listItems
+        list: currentNote.listItems,
+        editingNote: true
       })
     }
   }
@@ -62,9 +66,15 @@ export class Form extends Component {
   }
   
   createNote = async (event) => {
-    const { title, list, redirectHome } = this.state;
+    const { title, list, redirectHome, editingNote } = this.state;
     event.preventDefault();
-    const updated = await saveNewNote(title, list);
+    let updated
+    if (!editingNote) {
+      updated = await saveNewNote(title, list);
+    } else {
+      await patchNote(title, list, this.props.match.params.id)
+      updated = await getNotes();
+    }
     this.setState({redirectHome: true})
     return this.props.updateNotes(updated);
   }

@@ -22,7 +22,7 @@ describe('ListForm', () => {
                         setList={ mockSetList }
                         index={ 0 }
                       />)
-  })
+    });
 
   it('should have a default state', () => {
     expect(wrapper.state()).toEqual(defaultState);

@@ -4,13 +4,42 @@ import { NotesContainer, mapStateToProps, mapDispatchToProps } from './NotesCont
 import { updateNotes } from '../../actions'
 
 describe('NotesContainer', () => {
-  let wrapper
+  let wrapper;
+  const mockNotes = [
+    {
+      id: 824, title: 'test', listItems: [
+        { id: 248, text: 'test item' },
+        { id: 2345, text: 'test item 2' }
+      ]
+    }
+  ]; 
+
+  const mockUpdateNotes=jest.fn();
+  const mockGetNotes=jest.fn();
 
   beforeEach(() => {
-    wrapper = shallow(<NotesContainer />);
+    wrapper = shallow(
+      <NotesContainer notes={ mockNotes } updateNotes={ mockUpdateNotes }/>
+    )
   })
 
-  it('should match component snapshot', () => {
+  it.skip('should invoke getNotes after ComponentDidMount', async () => {
+    const spy = jest.spyOn(NotesContainer.prototype, 'getNotes')
+    wrapper = mount(<NotesContainer {...props} />)
+
+    await wrapper.instance().getNotes();
+
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it.skip('should invoke updateNotes after ComponentDidMount', () => {
+    const spy = jest.spyOn(NotesContainer.prototype, 'updateNotes')
+    wrapper = mount(<NotesContainer {...props} />)
+
+
+  } )
+
+  it.skip('should match component snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   })
 

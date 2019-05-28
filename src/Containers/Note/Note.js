@@ -137,14 +137,14 @@ export class Note extends Component {
 }
 
 Note.propTypes = {
-  id: PropTypes.number.isRequired,
-  listItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  title: PropTypes.string.isRequired,
-  updateNotes: PropTypes.func.isRequired,
+  id: PropTypes.number,
+  listItems: PropTypes.arrayOf(PropTypes.object),
+  notes: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
+  updateNotes: PropTypes.func,
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
     notes: state.notes || []
 })
 

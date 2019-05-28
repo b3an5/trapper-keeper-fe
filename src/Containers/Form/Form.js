@@ -34,6 +34,8 @@ export class Form extends Component {
         list: currentNote.listItems,
         editingNote: true
       })
+    } else {
+      this.setState({editingNote: false})
     }
   }
     
@@ -48,7 +50,7 @@ export class Form extends Component {
 
   setList = (newText, index, id) => {
     let newList
-    if(index) {
+    if(id || index) {
       let newListItem = { text: newText, completed: false, id }
       newList = Object.assign([], this.state.list, {[index]: newListItem})
     } else {
@@ -125,7 +127,6 @@ export class Form extends Component {
           { !titleSet && <TitleForm setTitle={this.setTitle} existingTitle={title} displayTitle={ this.displayTitle }/> }
         <hr/>
         {listItemsComponents}
-        {/* <ListForm setList={ this.setList } textValue={''} index={this.state.list.length}/> */}
         <form onSubmit={this.handleSubmit}>
           <input
             className='list-item-input'

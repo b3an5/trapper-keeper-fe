@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { updateNotes } from '../../actions';
-import { deleteNote } from '../../utils/fetchCalls/deleteNote'
-import { saveNewNote } from '../../utils/fetchCalls/saveNewNote'
+import { deleteNote } from '../../utils/fetchCalls/deleteNote';
+import { saveNewNote } from '../../utils/fetchCalls/saveNewNote';
+import { patchNote } from '../../utils/fetchCalls/patchNote';
+import { getNotes } from '../../utils/fetchCalls/getNotes';
+import { getCurrentNote } from '../../utils/fetchCalls/getCurrentNote';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 
@@ -15,7 +18,24 @@ export class Form extends Component {
       title: '',
       list: [],
       titleSet: false,
-      redirectHome: false
+      redirectHome: false,
+      editingNote: false,
+      listText: ''
+    }
+  }
+
+  componentDidMount = async () => {
+    if(this.props.match.path !== '/new-note') {
+      const { id } = this.props.match.params
+      const url = `http://localhost:3000/api/v1/notes/${id}`
+      const currentNote = await getCurrentNote(url)
+      this.setState({
+        title: currentNote.title,
+        list: currentNote.listItems,
+        editingNote: true
+      })
+    } else {
+      this.setState({editingNote: false})
     }
   }
     
@@ -28,10 +48,15 @@ export class Form extends Component {
     this.setState({ title })
   }
 
-  setList = (newText, index) => {
-    console.log('newText', newText, 'index', index)
-    let newListItem = { text: newText, index }
-    let newList = Object.assign([], this.state.list, {[index]: newListItem})
+  setList = (newText, index, id) => {
+    let newList
+    if(id || index) {
+      let newListItem = { text: newText, completed: false, id }
+      newList = Object.assign([], this.state.list, {[index]: newListItem})
+    } else {
+      let newListItem = { text: newText, completed: false }
+      newList = [...this.state.list, newListItem]
+    }
     
     this.setState({ list: newList })
   }
@@ -51,9 +76,15 @@ export class Form extends Component {
   }
   
   createNote = async (event) => {
-    const { title, list, redirectHome } = this.state;
+    const { title, list, redirectHome, editingNote } = this.state;
     event.preventDefault();
-    const updated = await saveNewNote(title, list);
+    let updated
+    if (!editingNote) {
+      updated = await saveNewNote(title, list);
+    } else {
+      await patchNote(title, list, this.props.match.params.id)
+      updated = await getNotes();
+    }
     this.setState({redirectHome: true})
     return this.props.updateNotes(updated);
   }
@@ -62,11 +93,21 @@ export class Form extends Component {
     this.setState({ titleSet: true })
   }
 
+  handleLiChange = (e) => {
+    this.setState({listText: e.target.value})
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    await this.setList(this.state.listText)
+    this.setState({listText: ''})
+  }
+
   render() {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
-      let i = index + 1
-      return <ListForm setList={this.setList} textValue={li.text} index={i} key={`list-form-${i}`}/>
+      let i = index
+      return <ListForm setList={this.setList} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
     })
 
     if(redirectHome) {
@@ -83,10 +124,19 @@ export class Form extends Component {
           Delete List
         </button>
           { titleSet && (<h2 className='form-title'>{title}</h2>) }
-          { !titleSet && <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> }
+          { !titleSet && <TitleForm setTitle={this.setTitle} existingTitle={title} displayTitle={ this.displayTitle }/> }
         <hr/>
-        <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}
+        <form onSubmit={this.handleSubmit}>
+          <input
+            className='list-item-input'
+            type='text'
+            placeholder='add new'
+            name='listItemInput'
+            value={this.state.listText}
+            onChange={this.handleLiChange}
+          />
+        </form>
         <button 
           className='cancel-btn'
           onClick={this.handleRedirect}

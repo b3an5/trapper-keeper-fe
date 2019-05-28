@@ -12,13 +12,19 @@ class ListForm extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.textValue !== '') {
+      this.setState({text: this.props.textValue})
+    }
+  }
+
   handleChange = (event) => {
     this.setState({ text: event.target.value })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.setList(this.state.text, this.props.index)
+    await this.props.setList(this.state.text, this.props.index, this.props.id)
   }
 
   render() {
@@ -36,7 +42,6 @@ class ListForm extends Component {
         <input
           className='list-item-input'
           type='text'
-          autoFocus={true}
           placeholder='add new'
           name='listItem'
           value={ this.state.text }

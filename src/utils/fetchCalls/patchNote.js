@@ -1,4 +1,4 @@
-export const patchNotes = async (title, listItems, id) => {
+export const patchNote = async (title, listItems, id) => {
   try {
     const url = `http://localhost:3000/api/v1/notes/${id}`
     const response = await fetch(url, {

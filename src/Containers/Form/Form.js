@@ -113,7 +113,7 @@ export class Form extends Component {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
       let i = index
-      return <ListForm setList={this.setList} deleteListItem={this.deleteListItem} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
+      return <ListForm setList={this.setList} deleteListItem={this.deleteListItem} id={li.id} textValue={li.text} index={i} key={`${li.text}-${i}-${li.id}`}/>
     })
 
     if(redirectHome) {

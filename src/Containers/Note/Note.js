@@ -89,7 +89,7 @@ export class Note extends Component {
       <article 
         className='note-card'>
         <header className='card-header'>
-          <h3 className='list-title'>
+          <h3 className='note-heading'>
             {title}
           </h3>
           <button

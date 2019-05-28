@@ -44,8 +44,8 @@ export class Form extends Component {
     this.setState({ title })
   }
 
-  setList = (newText, index) => {
-    let newListItem = { text: newText, index }
+  setList = (newText, index, id) => {
+    let newListItem = { text: newText, completed: false, id }
     let newList = Object.assign([], this.state.list, {[index]: newListItem})
     
     this.setState({ list: newList })
@@ -86,8 +86,8 @@ export class Form extends Component {
   render() {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
-      let i = index + 1
-      return <ListForm setList={this.setList} textValue={li.text} index={i} key={`list-form-${i}`}/>
+      let i = index
+      return <ListForm setList={this.setList} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
     })
 
     if(redirectHome) {
@@ -106,8 +106,8 @@ export class Form extends Component {
           { titleSet && (<h2 className='form-title'>{title}</h2>) }
           { !titleSet && <TitleForm setTitle={this.setTitle} existingTitle={title} displayTitle={ this.displayTitle }/> }
         <hr/>
-        <ListForm setList={ this.setList } index={0}/>
         {listItemsComponents}
+        <ListForm setList={ this.setList } index={this.state.list.length}/>
         <button 
           className='cancel-btn'
           onClick={this.handleRedirect}

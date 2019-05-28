@@ -6,6 +6,7 @@ import { updateNotes, toggleCompletedLi } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 import checkbox from '../../images/completed-icon.svg'
 import edit from '../../images/edit-icon.svg'
+import trash from '../../images/trash-icon.svg'
 import addNew from '../../images/add-new-icon.svg'
 import remove from '../../images/remove-icon.svg'
 import { patchNotes } from '../../utils/fetchCalls/patchNote';
@@ -95,37 +96,41 @@ export class Note extends Component {
           <button
             className='delete-card-btn delete-btn'
             onClick={this.deleteCard}>
-              x
+            <img 
+              src={ trash }
+              alt=''
+              className='trash-icon'
+            />
           </button>
         </header>
         {incompleteList.length === 0 && 
         <p className='empty-list-message'>You completed everything on your list! Cheers!</p>
         }
         <ul className='incomplete-ul'>
-          {incompleteList}
+          { incompleteList }
         <Link to={`/notes/${id}`}>
           <div className='add-wrapper'>
             <img
-              src={addNew}
+              src={ addNew }
               className='add-new-icon round-btn'
               alt=''/>
             <p className='add-new-text'>Add New</p>
           </div>
         </Link>
         </ul>
-        {completeList[0] && 
+        { completeList[0] && 
           <h5 className='complete-heading'>
             complete
-          </h5>}
+          </h5> }
         
         <ul className='complete-ul'>
 
           {completeList}
         </ul>
         <div className='edit-wrapper'>
-          <Link to={`/notes/${id}`}>
+          <Link to={`/notes/${ id }`}>
             <img 
-              src={edit} 
+              src={ edit } 
               className='edit-note-icon' 
               alt='Link to edit this note' 
               role='button'/>

@@ -1,6 +1,14 @@
 button {
   padding: 0;
   cursor: pointer;
+
+  &:focus {
+    outline: $outline;
+  }
+}
+
+a:focus {
+  outline: $outline;
 }
 
 .form {

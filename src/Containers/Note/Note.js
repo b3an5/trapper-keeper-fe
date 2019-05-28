@@ -17,7 +17,7 @@ export class Note extends Component {
     setTimeout(() => {
       patchNote(this.props.title, this.props.listItems, this.props.id)
     }, 1000);
-}
+  }
 
   deleteCard = async () => {
     try {

@@ -24,8 +24,9 @@ export class Note extends Component {
       const notes = await deleteNote(this.props.id);
       return this.props.updateNotes(notes);
     } catch (e) { 
-      throw Error('Failed to delete list') }
+      throw Error('Failed to delete list') 
     }
+  }
 
 
   render() {
@@ -74,7 +75,7 @@ export class Note extends Component {
           </label>
           <button
           className='delete-li-btn'
-          // onClick={this.deleteLi}
+          onClick={this.deleteLi}
           >
           <img 
             src={remove}

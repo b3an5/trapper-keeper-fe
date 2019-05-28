@@ -22,6 +22,7 @@ export class Form extends Component {
       editingNote: false,
       listText: ''
     }
+    // this.deleteListItem.bind
   }
 
   componentDidMount = async () => {
@@ -104,7 +105,7 @@ export class Form extends Component {
   }
 
   deleteListItem = (id) => {
-    let newList = this.state.list.filter(li => id !== li.id)
+    let newList = this.state.list.filter(li => li.id !== id)
     this.setState({list: newList})
   }
 

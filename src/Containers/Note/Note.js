@@ -8,14 +8,14 @@ import checkbox from '../../images/completed-icon.svg'
 import edit from '../../images/edit-icon.svg'
 import addNew from '../../images/add-new-icon.svg'
 import remove from '../../images/remove-icon.svg'
-import { patchNotes } from '../../utils/fetchCalls/patchNote';
+import { patchNote } from '../../utils/fetchCalls/patchNote';
 
 
 export class Note extends Component {
 
   componentDidUpdate() {
     setTimeout(() => {
-      patchNotes(this.props.title, this.props.listItems, this.props.id)
+      patchNote(this.props.title, this.props.listItems, this.props.id)
     }, 1000);
 }
 

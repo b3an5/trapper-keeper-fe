@@ -47,7 +47,7 @@ class ListForm extends Component {
           value={ this.state.text }
           onChange={ this.handleChange }
         />
-        <button className='lf-delete-btn round-btn btn'>x</button>
+        <button onClick={() => this.props.deleteListItem(this.props.id)} className='lf-delete-btn round-btn btn'>x</button>
       </form>
     )
   }

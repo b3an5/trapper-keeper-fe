@@ -103,11 +103,16 @@ export class Form extends Component {
     this.setState({listText: ''})
   }
 
+  deleteListItem = (id) => {
+    let newList = this.state.list.filter(li => id !== li.id)
+    this.setState({list: newList})
+  }
+
   render() {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
       let i = index
-      return <ListForm setList={this.setList} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
+      return <ListForm setList={this.setList} deleteListItem={this.deleteListItem} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
     })
 
     if(redirectHome) {

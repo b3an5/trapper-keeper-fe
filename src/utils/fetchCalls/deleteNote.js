@@ -11,7 +11,7 @@ export const deleteNote = async (id) => {
       }
     })
     if (!response.ok) {
-      throw Error(response.statusText)
+      throw new Error(response.statusText)
     }
     const updated = await getNotes()
     return updated;

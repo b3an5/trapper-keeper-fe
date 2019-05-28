@@ -153,8 +153,8 @@ export class Form extends Component {
 }
 
 Form.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateNotes: PropTypes.func.isRequired,
+  notes: PropTypes.arrayOf(PropTypes.object),
+  updateNotes: PropTypes.func,
 }
 
 export const mapStateToProps = (state) => ({

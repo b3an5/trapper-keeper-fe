@@ -54,7 +54,7 @@ export class Form extends Component {
       let newListItem = { text: newText, completed: false, id }
       newList = Object.assign([], this.state.list, {[index]: newListItem})
     } else {
-      let newListItem = { text: newText, completed: false }
+      let newListItem = { text: newText, completed: false, id: Math.floor(Math.random() * 100000) }
       newList = [...this.state.list, newListItem]
     }
     

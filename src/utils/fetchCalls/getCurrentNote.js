@@ -3,6 +3,12 @@ export const getCurrentNote = async (url) => {
   if (!response.ok) {
     throw Error("Failed to fetch notes")
   }
-  return response.json();
+  let note = await response.json();
+  const noteToEdit = await {
+    id: note.id,
+    listItems: note.listItems,
+    title: note.title
+  }
+  return noteToEdit
 }
 // TODO refactor instances of get notes to accept url param and eliminate redundant fn

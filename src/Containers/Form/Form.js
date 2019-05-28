@@ -15,26 +15,31 @@ export class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // title: '',
-      // list: [],
+      title: '',
+      list: [],
       titleSet: false,
       redirectHome: false,
-      editingNote: false
+      editingNote: false,
+      loading: false
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    const { setCurrentNote } = this.props;
     const { id } = this.props.match.params
     const url = `http://localhost:3000/api/v1/notes/${id}`
-    const { setCurrentNote } = this.props;
     if(this.props.match.path !== '/new-note') {
       this.setState({
-        editingNote: true
+        loading: true,
+        editingNote: true,
+        titleSet: true
       })
+      const note = await getCurrentNote(url);
+      return setCurrentNote(note);
     }
-    getCurrentNote(url)
-      .then(response => setCurrentNote(response))
   }
+
+
     
   handleDelete = (e) => {
     const { id } = e.target
@@ -46,7 +51,6 @@ export class Form extends Component {
   }
 
   setList = (newText, index) => {
-    console.log('newText', newText, 'index', index)
     let newListItem = { text: newText, index }
     let newList = Object.assign([], this.state.list, {[index]: newListItem})
     this.setState({ list: newList })
@@ -84,21 +88,31 @@ export class Form extends Component {
     this.setState({ titleSet: true })
   }
 
+  getLiComponents = () => {
+
+    let list = this.props.currentNote.listItems
+
+    let listForms 
+    if(list !== undefined) {
+      listForms = list.map((li, index) => {
+        let i = index + 1
+        return (
+          <ListForm 
+            setList={this.setList} 
+            autoFocus='autoFocus'
+            textValue={li.text} 
+            index={i} 
+            key={`list-form-${i}`}/>
+        )
+      }) 
+      return listForms;
+    }
+  }
+
   render() {
-    const { titleSet, redirectHome } = this.state;
+    const { titleSet, redirectHome, editingNote } = this.state;
     const { title, listItems } = this.props.currentNote
-    let listItemsComponents = []
-    // listItems.map((li, index) => {
-    //   let i = index + 1
-    //   return (
-    //     <ListForm 
-    //       setList={this.setList} 
-    //       autoFocus='autoFocus'
-    //       textValue={li.text} 
-    //       index={i} 
-    //       key={`list-form-${i}`}/>
-    //   )
-    // })
+    const listItemsComponents = this.getLiComponents()
 
     if(redirectHome) {
       return (
@@ -107,26 +121,28 @@ export class Form extends Component {
     }
     return (
       <section className='form'>
-        { !titleSet && (
+        { !titleSet && !editingNote && (
            <TitleForm 
             setTitle={this.setTitle}
-            existingTitle={title} displayTitle={ this.displayTitle }/> 
+            existingTitle={title} 
+            displayTitle={ this.displayTitle }/> 
           )}
-        { titleSet && 
+         { titleSet && 
           <>
-            <button 
-              className='delete-list-btn' 
-              onClick={this.handleDelete}
-            >
+            <button onClick={this.handleDelete}>
               Delete List
             </button>
-            <h2 className='form-heading border-bottom'>{title}</h2> 
-            <ListForm 
-              setList={ this.setList }
-              index={0}/>
-          </>  
-          }
-        {listItemsComponents}
+            <TitleForm 
+              setTitle={this.setTitle}
+              existingTitle={title} 
+              displayTitle={ this.displayTitle }/> 
+          </>
+          // {/* <h2 className='form-heading border-bottom'>{title}</h2> */}
+         }
+        { listItemsComponents !== undefined && listItemsComponents[0] && listItemsComponents}
+        <ListForm 
+          setList={ this.setList }
+          index={0}/> 
         <button 
           className='cancel-btn'
           onClick={this.handleRedirect}
@@ -142,6 +158,7 @@ export class Form extends Component {
     )
   }
 }
+
 
 Form.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object),

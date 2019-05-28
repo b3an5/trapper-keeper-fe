@@ -15,6 +15,13 @@ import { patchNote } from '../../utils/fetchCalls/patchNote';
 //    add constructor with redirect state
 //    in handleEdit add redirect to /notes/:id
 export class Note extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      redirect: false
+    }
+  }
+  
 
   componentDidUpdate() {
     setTimeout(() => {
@@ -34,6 +41,7 @@ export class Note extends Component {
     const { id, title, listItems, setCurrentNote } = this.props;
     const currentNote = { id, title, listItems };
     setCurrentNote(currentNote);
+    this.setState({redirect: true})
   }
 
 
@@ -94,6 +102,14 @@ export class Note extends Component {
         </li>
       ) 
     })
+
+    if(this.state.redirect) {
+      return (
+        <Redirect to={`/notes/${id}`} />
+      )
+      
+    }
+
     return (
       <article 
         className='note-card'>

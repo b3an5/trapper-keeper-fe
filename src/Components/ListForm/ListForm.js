@@ -39,7 +39,7 @@ class ListForm extends Component {
           autoFocus
           placeholder='add new'
           name='listItem'
-          value={ this.state.text }
+          value={ this.props.textValue }
           onChange={ this.handleChange }
         />
         <button className='lf-delete-btn round-btn btn'>x</button>

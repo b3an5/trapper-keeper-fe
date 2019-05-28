@@ -5,7 +5,8 @@ export const patchNote = async (title, listItems, id) => {
       method: 'PATCH',
       body: JSON.stringify({
         title,
-        listItems
+        listItems,
+        id
       }),
       headers: {
         'content-type': 'application/json'

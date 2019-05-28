@@ -22,6 +22,7 @@ export class Form extends Component {
       editingNote: false,
       listText: ''
     }
+    // this.deleteListItem.bind
   }
 
   componentDidMount = async () => {
@@ -54,7 +55,7 @@ export class Form extends Component {
       let newListItem = { text: newText, completed: false, id }
       newList = Object.assign([], this.state.list, {[index]: newListItem})
     } else {
-      let newListItem = { text: newText, completed: false }
+      let newListItem = { text: newText, completed: false, id: Math.floor(Math.random() * 100000) }
       newList = [...this.state.list, newListItem]
     }
     
@@ -103,11 +104,16 @@ export class Form extends Component {
     this.setState({listText: ''})
   }
 
+  deleteListItem = (id) => {
+    let newList = this.state.list.filter(li => li.id !== id)
+    this.setState({list: newList})
+  }
+
   render() {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
       let i = index
-      return <ListForm setList={this.setList} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
+      return <ListForm setList={this.setList} deleteListItem={this.deleteListItem} id={li.id} textValue={li.text} index={i} key={`list-form-${i}`}/>
     })
 
     if(redirectHome) {

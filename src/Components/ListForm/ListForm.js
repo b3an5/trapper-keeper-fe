@@ -27,6 +27,10 @@ class ListForm extends Component {
     await this.props.setList(this.state.text, this.props.index, this.props.id)
   }
 
+  handleDelete = () => {
+    this.props.deleteListItem(this.props.id)
+  }
+
   render() {
     return(
       <form onSubmit={ this.handleSubmit }>
@@ -47,7 +51,7 @@ class ListForm extends Component {
           value={ this.state.text }
           onChange={ this.handleChange }
         />
-        <button className='lf-delete-btn round-btn btn'>x</button>
+        <button onClick={this.handleDelete} className='lf-delete-btn round-btn btn'>x</button>
       </form>
     )
   }

@@ -8,11 +8,6 @@ import { updateNotes } from '../../actions/index'
 
 export class NotesContainer extends Component  {
 
-  componentDidMount = async () => {
-    const notes = await getNotes();
-    this.props.updateNotes(notes)  
-  }
-
   render() {
     const notes = this.props.notes.map((note, i) => {
       return (

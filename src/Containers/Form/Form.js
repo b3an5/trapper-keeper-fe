@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { updateNotes } from '../../actions';
+import { updateNotes, setCurrentNote } from '../../actions';
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 import { saveNewNote } from '../../utils/fetchCalls/saveNewNote';
 import { patchNote } from '../../utils/fetchCalls/patchNote';
 import { getNotes } from '../../utils/fetchCalls/getNotes';
+import { getCurrentNote } from '../../utils/fetchCalls/getCurrentNote';
 import ListForm from '../../Components/ListForm/ListForm';
 import TitleForm from '../../Components/TitleForm/TitleForm';
 
@@ -14,8 +15,8 @@ export class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: '',
-      list: [],
+      // title: '',
+      // list: [],
       titleSet: false,
       redirectHome: false,
       editingNote: false
@@ -23,16 +24,16 @@ export class Form extends Component {
   }
 
   componentDidMount() {
+    const { id } = this.props.match.params
+    const url = `http://localhost:3000/api/v1/notes/${id}`
+    const { setCurrentNote } = this.props;
     if(this.props.match.path !== '/new-note') {
-      const currentNote = this.props.notes.find((note) => {
-        return note.id === parseInt(this.props.match.params.id)
-      })
       this.setState({
-        title: currentNote.title,
-        list: currentNote.listItems,
         editingNote: true
       })
     }
+    getCurrentNote(url)
+      .then(response => setCurrentNote(response))
   }
     
   handleDelete = (e) => {
@@ -84,18 +85,20 @@ export class Form extends Component {
   }
 
   render() {
-    const { title, list, titleSet, redirectHome } = this.state;
-    let listItemsComponents = list.map((li, index) => {
-      let i = index + 1
-      return (
-        <ListForm 
-          setList={this.setList} 
-          autoFocus='autoFocus'
-          textValue={li.text} 
-          index={i} 
-          key={`list-form-${i}`}/>
-      )
-    })
+    const { titleSet, redirectHome } = this.state;
+    const { title, listItems } = this.props.currentNote
+    let listItemsComponents = []
+    // listItems.map((li, index) => {
+    //   let i = index + 1
+    //   return (
+    //     <ListForm 
+    //       setList={this.setList} 
+    //       autoFocus='autoFocus'
+    //       textValue={li.text} 
+    //       index={i} 
+    //       key={`list-form-${i}`}/>
+    //   )
+    // })
 
     if(redirectHome) {
       return (
@@ -105,7 +108,9 @@ export class Form extends Component {
     return (
       <section className='form'>
         { !titleSet && (
-           <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> 
+           <TitleForm 
+            setTitle={this.setTitle}
+            existingTitle={title} displayTitle={ this.displayTitle }/> 
           )}
         { titleSet && 
           <>
@@ -144,11 +149,13 @@ Form.propTypes = {
 }
 
 export const mapStateToProps = (state) => ({
-  notes: state.notes || []
+  notes: state.notes || [],
+  currentNote: state.currentNote
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  updateNotes: (notes) => dispatch(updateNotes(notes))
+  updateNotes: (notes) => dispatch(updateNotes(notes)),
+  setCurrentNote: (note) => dispatch(setCurrentNote(note))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

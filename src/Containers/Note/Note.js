@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { updateNotes, toggleCompletedLi } from '../../actions/index'
+import { updateNotes, toggleCompletedLi, setCurrentNote } from '../../actions/index'
 import { deleteNote } from '../../utils/fetchCalls/deleteNote';
 import checkbox from '../../images/completed-icon.svg'
 import edit from '../../images/edit-icon.svg'
@@ -11,7 +11,9 @@ import addNew from '../../images/add-new-icon.svg'
 import remove from '../../images/remove-icon.svg'
 import { patchNote } from '../../utils/fetchCalls/patchNote';
 
-
+// TODO create icons.js and import * as icon
+//    add constructor with redirect state
+//    in handleEdit add redirect to /notes/:id
 export class Note extends Component {
 
   componentDidUpdate() {
@@ -26,7 +28,13 @@ export class Note extends Component {
       return this.props.updateNotes(notes);
     } catch (e) { 
       throw Error('Failed to delete list') }
-    }
+  }
+
+  handleEdit = () => {
+    const { id, title, listItems, setCurrentNote } = this.props;
+    const currentNote = { id, title, listItems };
+    setCurrentNote(currentNote);
+  }
 
 
   render() {
@@ -124,17 +132,16 @@ export class Note extends Component {
           </h5> }
         
         <ul className='complete-ul'>
-
           {completeList}
         </ul>
         <div className='edit-wrapper'>
-          <Link to={`/notes/${ id }`}>
             <img 
+              role='button'
+              onClick={ this.handleEdit }
               src={ edit } 
               className='edit-note-icon' 
               alt='Link to edit this note' 
-              role='button'/>
-          </Link>
+            />
         </div>
       </article>
     )
@@ -142,6 +149,7 @@ export class Note extends Component {
 }
 
 Note.propTypes = {
+  // currentNote, toggleCompletedLi
   id: PropTypes.number,
   listItems: PropTypes.arrayOf(PropTypes.object),
   notes: PropTypes.arrayOf(PropTypes.object),
@@ -150,11 +158,13 @@ Note.propTypes = {
 }
 
 export const mapStateToProps = (state) => ({
-    notes: state.notes || []
+    notes: state.notes || [],
+    currentNote: state.currentNote
 })
 
 export const mapDispatchToProps = (dispatch) => ({
   updateNotes: (notes) => dispatch(updateNotes(notes)),
+  setCurrentNote: (note) => dispatch(setCurrentNote(note)),
   toggleCompletedLi: (li) => dispatch(toggleCompletedLi(li))
 })
 

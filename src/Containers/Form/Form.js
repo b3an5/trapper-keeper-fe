@@ -32,7 +32,6 @@ export class Form extends Component {
     console.log('newText', newText, 'index', index)
     let newListItem = { text: newText, index }
     let newList = Object.assign([], this.state.list, {[index]: newListItem})
-    
     this.setState({ list: newList })
   }
 
@@ -66,7 +65,14 @@ export class Form extends Component {
     const { title, list, titleSet, redirectHome } = this.state;
     let listItemsComponents = list.map((li, index) => {
       let i = index + 1
-      return <ListForm setList={this.setList} textValue={li.text} index={i} key={`list-form-${i}`}/>
+      return (
+        <ListForm 
+          setList={this.setList} 
+          autoFocus='autoFocus'
+          textValue={li.text} 
+          index={i} 
+          key={`list-form-${i}`}/>
+      )
     })
 
     if(redirectHome) {
@@ -76,16 +82,23 @@ export class Form extends Component {
     }
     return (
       <section className='form'>
-        <button 
-          className='delete-list-btn' 
-          onClick={this.handleDelete}
-          >
-          Delete List
-        </button>
-          { titleSet && (<h2 className='form-title'>{title}</h2>) }
-          { !titleSet && <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> }
-        <hr/>
-        <ListForm setList={ this.setList } index={0}/>
+        { !titleSet && (
+           <TitleForm setTitle={this.setTitle} displayTitle={ this.displayTitle }/> 
+          )}
+        { titleSet && 
+          <>
+            <button 
+              className='delete-list-btn' 
+              onClick={this.handleDelete}
+            >
+              Delete List
+            </button>
+            <h2 className='form-heading border-bottom'>{title}</h2> 
+            <ListForm 
+              setList={ this.setList }
+              index={0}/>
+          </>  
+          }
         {listItemsComponents}
         <button 
           className='cancel-btn'

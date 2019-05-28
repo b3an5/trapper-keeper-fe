@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 
 const TitleForm = (props) => {
   return (
-    <form onSubmit={ props.displayTitle }> 
+    <form 
+      className='title-form border-bottom'
+      onSubmit={ props.displayTitle }> 
       <button className='add-btn'>+</button>
       <input
         type='text'
+        autoFocus
         className='title-input'
         placeholder='Title'
         name='title'

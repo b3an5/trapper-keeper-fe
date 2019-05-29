@@ -46,7 +46,7 @@ direct your browser to localhost:3000
 
 ## Screenshots
 Submitted project
-![video](src/images/video.png)
+![](src/images/video.gif)
 ![](src/images/screenshot.png)
 
 

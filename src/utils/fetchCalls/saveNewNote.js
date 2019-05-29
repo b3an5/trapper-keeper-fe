@@ -1,5 +1,4 @@
-import { getNotes } from "./getNotes";
-
+import { getNotes } from './getNotes'
 
 export const saveNewNote = async (title, listItems) => {
   try {
@@ -8,17 +7,17 @@ export const saveNewNote = async (title, listItems) => {
       method: 'POST',
       body: JSON.stringify({
         title,
-        listItems
+        listItems,
       }),
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     })
     if (!response.ok) {
       throw Error(response.statusText)
     }
-   const updated = await getNotes();
-   return updated;
+    const updated = await getNotes()
+    return updated
   } catch (e) {
     throw new Error(e, 'Unable to save note')
   }

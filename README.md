@@ -1,5 +1,6 @@
 # Trapper Keeper
-Assigned project for Module 3(of 4) of the Front-End Engineering program at Turing School of Software and Design 
+Assigned project for Module 3(of 4) of the Front-End Engineering program at Turing School of Software and Design in Denver, CO
+Check out our back end at https://github.com/b3an5/trapper-keeper-fe
 
 #### Contributors
 
@@ -8,6 +9,15 @@ Assigned project for Module 3(of 4) of the Front-End Engineering program at Turi
 + Mark Collins https://github.com/kobesparrow
 
 ## Intall/Setup
+
+##### clone down backend
+``` 
+git clone https://github.com/misskelly/trapper-keeper-api 
+npm install
+npm start 
+```
+
+
 ##### clone down frontend
 ```
 git clone https://github.com/b3an5/trapper-keeper-fe`
@@ -16,13 +26,6 @@ npm start
 ```
 direct your browser to localhost:3000
 
-
-##### clone down backend
-``` 
-git clone https://github.com/misskelly/trapper-keeper-api 
-npm install
-npm start 
-```
 
 ## Stack
 - React

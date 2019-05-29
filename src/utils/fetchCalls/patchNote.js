@@ -6,15 +6,14 @@ export const patchNote = async (title, listItems, id) => {
       body: JSON.stringify({
         title,
         listItems,
-        id
+        id,
       }),
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     })
     return await response.json()
   } catch (e) {
-
     throw new Error(e, 'Unable to save note')
   }
 }

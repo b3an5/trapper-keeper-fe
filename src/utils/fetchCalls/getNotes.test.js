@@ -1,33 +1,37 @@
-import { getNotes } from './getNotes';
-import { mockData } from '../mockData';
+import { mockNotes } from '../mockData'
+import { getNotes } from './getNotes'
 
 describe('getNotes', () => {
-  const mockUrl = 'http://localhost:3000/api/v1/notes' 
+  const mockUrl = 'http://localhost:3000/api/v1/notes'
 
-  window.fetch = jest.fn().mockImplementation(() => 
+  window.fetch = jest.fn().mockImplementation(() =>
     Promise.resolve({
       ok: true,
-      json: () => Promise.resolve(mockData)
-    }))
+      json: () => Promise.resolve(mockNotes),
+    })
+  )
 
   it('should fetch using correct parameter', () => {
-    getNotes(mockUrl);
+    getNotes(mockUrl)
 
-    expect(window.fetch).toHaveBeenCalledWith(mockUrl);
-  });
+    expect(window.fetch).toHaveBeenCalledWith(mockUrl)
+  })
 
   it('should return mockData when fetch is successful', async () => {
-    const result = await getNotes(mockUrl);
+    const result = await getNotes(mockUrl)
 
-    await expect(result).toEqual(mockData)
-  });
+    await expect(result).toEqual(mockNotes)
+  })
 
   it('should return error when fetch is unsuccessful', async () => {
-    window.fetch = jest.fn().mockImplementation(() => 
+    window.fetch = jest.fn().mockImplementation(() =>
       Promise.resolve({
-        ok: false
-    }))
+        ok: false,
+      })
+    )
 
-    await expect(getNotes(mockUrl)).rejects.toEqual(Error('Failed to fetch notes'))
+    await expect(getNotes(mockUrl)).rejects.toEqual(
+      Error('Failed to fetch notes')
+    )
   })
 })

@@ -1,15 +1,14 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import ListItem from './ListItem';
-import { exportAllDeclaration } from '@babel/types';
+import React from 'react'
+import { shallow, mount } from 'enzyme'
+import ListItem from './ListItem'
 
 describe('ListItem', () => {
-  let wrapper;
-  const mockListItem = { text: 'testing', id: 824}
+  let wrapper
+  const mockListItem = { text: 'testing', id: 824 }
 
   it('should match the snapshot', () => {
-    wrapper = shallow(<ListItem { ...mockListItem }/>)
+    wrapper = shallow(<ListItem {...mockListItem} />)
 
-    expect(wrapper).toMatchSnapshot();
-  });
+    expect(wrapper).toMatchSnapshot()
+  })
 })

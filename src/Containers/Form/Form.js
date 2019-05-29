@@ -81,7 +81,7 @@ export class Form extends Component {
   }
 
   createNote = async event => {
-    const { title, list, redirectHome, editingNote } = this.state
+    const { title, list, editingNote } = this.state
     event.preventDefault()
     let updated
     if (!editingNote) {

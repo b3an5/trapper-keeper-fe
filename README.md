@@ -1,6 +1,6 @@
 # Trapper Keeper
 Assigned project for Module 3(of 4) of the Front-End Engineering program at Turing School of Software and Design in Denver, CO
-Check out our back end at https://github.com/b3an5/trapper-keeper-fe
++ Check out our back end repo at https://github.com/b3an5/trapper-keeper-fe
 
 #### Contributors
 
@@ -46,7 +46,7 @@ direct your browser to localhost:3000
 
 ## Screenshots
 Submitted project
-
+![video](src/images/video.png)
 ![](src/images/screenshot.png)
 
 
